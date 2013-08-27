@@ -1,0 +1,110 @@
+\documentclass[12pt, oneside, a4paper] {scrartcl}
+
+\usepackage{a4wide}
+\usepackage[T1] {fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+\usepackage[textsize=scriptsize]{todonotes}
+
+\usepackage{titling}
+
+\usepackage{scrpage2}
+
+\usepackage{amsmath, amssymb, amsthm} % AMS-LaTeX math features
+
+\usepackage{bbding}
+
+
+\author{Paul Hein (pah)}
+\title{Mathe A - Selbsttests}
+
+
+\newtheoremstyle{theorems}         % name
+                {\topsep}          % space above
+                {\topsep}          % space below
+                {}                 % body font
+                {}                 % indent amount: empty = no indent; \parindent = normal paragraph indent
+                {\bfseries}        % theorem head font
+                {.}                % punctuation after theorem head
+                {.5em}             % space after theorem head: { } = normal interword space; \newline = linebreak
+                {\thmname{#1} \thmnumber{#2}\thmnote{ \normalfont{(#3)}}}
+                                   % custom head specification: #1 = thmname; #2 = thmnumber; #3 = thmnote
+                                   % \thmname, \thmnumber and \thmnote will typeset their arguments if and
+                                   % only if the corresponding argument in the \thmhead is non empty
+\theoremstyle{theorems}            % style used for the following theorems
+
+
+\newtheorem{frag}{Frage}[section]
+
+\newtheorem{antw}{Antwort}[section]
+
+\newcommand{\frage}[1]{\begin{frag}
+#1
+\end{frag}}
+
+\newcommand{\antwort}[1]{\begin{antw}
+#1
+\end{antw}}
+
+\newcommand{\antwright}{\item[\Checkmark]}
+
+\newcommand{\antwfalse}{\item[\XSolidBrush]}
+
+\newcommand{\typ}[1]{\textit{\textbf{Typ:} #1}}
+
+\newcommand{\level}[1]{\textit{\textbf{Schwierigkeit:} #1}}
+
+\newcommand{\feedbackright}[1]{\noindent\textit{Feedback richtig: #1}}
+
+\newcommand{\feedbackfalse}[1]{\noindent\textit{Feedback falsch: #1}}
+
+\DeclareMathOperator{\wahr}{\mathsf{W}}
+
+\DeclareMathOperator{\falsch}{\mathsf{F}}
+
+\usepackage[                     % PDF support
+		bookmarks=true,
+		bookmarksopen=true,
+		bookmarksnumbered=true,
+		pdftitle={\thetitle},
+		pdfauthor={\theauthor},
+		pdfsubject={},
+		pdfkeywords={},
+		]{hyperref}
+		
+
+\begin{document}
+
+
+\begin{titlepage}
+\begin{flushleft}
+{\textbf{Christian-Albrechts-Universität zu Kiel}}\\
+{\normalsize{ Technische Fakultät \\Institut für Informatik\\
+Arbeitsgruppe Algorithmische Optimale Steuerung - CO2-Aufnahme des Meeres }}
+\end{flushleft}
+
+\vspace{3.5cm}
+
+
+{\huge\begin{center}
+{\textbf{\thetitle}}
+\end{center}}
+
+\begin{center}
+{{\Large \theauthor}}
+\end{center}
+
+\end{titlepage}
+
+\input{chapter1}
+
+%\newpage
+
+%\input{chapter2}
+
+%\newpage
+
+%\input{vorlage}
+
+\end{document}

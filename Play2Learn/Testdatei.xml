@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<assessmentTest title="Bruchrechnung" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd" 
+    identifier="RTEST-13">
+    <testPart identifier="test1" navigationMode="linear" submissionMode="individual">
+        <itemSessionControl showFeedback="true" maxAttempts="1" showSolution="false" /> 
+        <assessmentSection identifier="section1" title="Section A" visible="true">
+            <rubricBlock view="candidate">
+                Bruchaddition 
+            </rubricBlock>
+            <assessmentItemRef identifier="question1" href="1.xml">
+                <itemSessionControl maxAttempts="0" /> 
+            </assessmentItemRef>
+            <assessmentItemRef identifier="question2" href="2.xml">
+            </assessmentItemRef>
+        </assessmentSection>
+        <assessmentSection identifier="section2" title="Section B" visible="true">
+            <rubricBlock view="candidate">
+                Bruchmultiplikation 
+            </rubricBlock>
+            <assessmentItemRef identifier="question3" href="3.xml" />
+            <assessmentItemRef identifier="question4" href="4.xml" /> 
+        </assessmentSection>
+    </testPart>
+</assessmentTest>

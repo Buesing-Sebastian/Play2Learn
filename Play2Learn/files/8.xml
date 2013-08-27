@@ -1,0 +1,38 @@
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd" identifier="choiceMultiple" title="Composition of Water" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>B</value>
+        </correctResponse>
+        <correctResponse>
+            <value>C</value>
+        </correctResponse>
+        
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>5</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <choiceInteraction responseIdentifier="MR01" shuffle="true" maxChoices="0">
+            <prompt id="1">
+                <![CDATA[
+                    Sei $M = \{1,3,5,7,9 \}$. Wählen Sie alle deskriptiven Darstellungen von $M$
+                ]]>
+            </prompt>
+            <simpleChoice identifier="A" fixed="false"><![CDATA[
+                $M = \{ n \in \mathbb{N} \ | \ \text{es gibt} \ m \in \mathbb{N} \ \text{mit} \ 0 < m < 5 \ \text{und} \ n = 2 \cdot m + 1 \}$.
+            ]]>
+            </simpleChoice>
+            <simpleChoice identifier="B" fixed="false"><![CDATA[
+                $M = \{ n \in \mathbb{N} \ | \ \text{es gibt} \ m \in \mathbb{N} \ \text{mit} \ 0 \leq m < 5 \ \text{und} \ n = 2 \cdot m + 1 \}$.
+            ]]></simpleChoice>
+            <simpleChoice identifier="C" fixed="false"><![CDATA[
+                $M = \{ n \in \mathbb{N} \ | \ \text{es gibt} \ m \in \mathbb{N} \ \text{mit} \ 0 < m < 6 \ \text{und} \ n = 2 \cdot m - 1 \}$.
+            ]]></simpleChoice>
+            <simpleChoice identifier="D" fixed="false"><![CDATA[
+                $M = \{ n \in \mathbb{N} \ | \ \text{es gibt} \ m \in \mathbb{N} \ \text{mit} \ 0 \leq m < 4 \ \text{und} \ n = 2 \cdot m + 3 \}$.
+            ]]></simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+</assessmentItem>

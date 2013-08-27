@@ -1,0 +1,35 @@
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd" identifier="choiceMultiple" title="Composition of Water" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>B</value>
+        </correctResponse>
+        
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>5</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <choiceInteraction responseIdentifier="MR01" shuffle="true" maxChoices="0">
+            <prompt id="1">
+                <![CDATA[
+                    Sei $\mathbf{M} = \{ \{0,1,2\}, \{1,2\}, \{1,2,3\}, \{1,4\} \}$. Dann gelten
+                ]]>
+            </prompt>
+            <simpleChoice identifier="A" fixed="false"><![CDATA[
+                $\bigcap \mathbf{M} = \emptyset$.
+            ]]>
+            </simpleChoice>
+            <simpleChoice identifier="B" fixed="false"><![CDATA[
+                $\bigcap \mathbf{M} = \{ 1\}$.
+            ]]></simpleChoice>
+            <simpleChoice identifier="C" fixed="false"><![CDATA[
+                $\bigcap \mathbf{M} = \{ 1,2\}$.
+            ]]></simpleChoice>
+            <simpleChoice identifier="D" fixed="false"><![CDATA[
+                $\bigcap \mathbf{M} = \{ 0,1,2,3,4\}$.
+            ]]></simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+</assessmentItem>

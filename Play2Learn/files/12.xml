@@ -1,0 +1,35 @@
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd" identifier="choiceMultiple" title="Composition of Water" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>C</value>
+        </correctResponse>
+        
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>5</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <choiceInteraction responseIdentifier="MR01" shuffle="true" maxChoices="0">
+            <prompt id="1">
+                <![CDATA[
+                    Seinen $M = \{ 1,2,3,5\}$ und $N = \{n \in \mathbb{N} \ | \ n \leq 8 \ \text{und es gibt} \ m \in \mathbb{N} \ \text{mit} \ 2 \cdot m = n\}$. Dann gelten
+                ]]>
+            </prompt>
+            <simpleChoice identifier="A" fixed="false"><![CDATA[
+                $M \cap N = \{0,2 \}$.
+            ]]>
+            </simpleChoice>
+            <simpleChoice identifier="B" fixed="false"><![CDATA[
+                $M \cap N = \{1,3,5 \}$.
+            ]]></simpleChoice>
+            <simpleChoice identifier="C" fixed="false"><![CDATA[
+                $M \cap N = \{2\}$.
+            ]]></simpleChoice>
+            <simpleChoice identifier="D" fixed="false"><![CDATA[
+                $M \cap N = \{0,1,2,3,4,5,6,7,8 \}$.
+            ]]></simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+</assessmentItem>

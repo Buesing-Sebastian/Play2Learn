@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Answer" representedClassName="Answer" syncable="YES">
+        <attribute name="primaryKey" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="question" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="answers" inverseEntity="Question" syncable="YES"/>
+    </entity>
+    <entity name="Catalog" representedClassName="Catalog" syncable="YES">
+        <attribute name="href" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="lessons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lesson" inverseName="catalog" inverseEntity="Lesson" syncable="YES"/>
+    </entity>
+    <entity name="Choice" representedClassName="Choice" syncable="YES">
+        <attribute name="value" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="answer" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Answer" syncable="YES"/>
+        <relationship name="inquiry" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Inquiry" syncable="YES"/>
+        <relationship name="question" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
+    </entity>
+    <entity name="Inquiry" representedClassName="Inquiry" syncable="YES">
+        <attribute name="answers" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="finished" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="primaryKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="started" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="Question" syncable="YES"/>
+    </entity>
+    <entity name="Lesson" representedClassName="Lesson" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="primaryKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="catalog" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Catalog" inverseName="lessons" inverseEntity="Catalog" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Question" inverseName="lesson" inverseEntity="Question" syncable="YES"/>
+    </entity>
+    <entity name="PrimaryKey" representedClassName="PrimaryKey" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="catalog" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="inquiry" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="lesson" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="question" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Question" representedClassName="Question" syncable="YES">
+        <attribute name="difficulty" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="primaryKey" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="prompt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="answers" optional="YES" toMany="YES" minCount="4" deletionRule="Nullify" destinationEntity="Answer" inverseName="question" inverseEntity="Answer" syncable="YES"/>
+        <relationship name="correctAnswers" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="Answer" syncable="YES"/>
+        <relationship name="lesson" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="questions" inverseEntity="Lesson" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Answer" positionX="-234" positionY="441" width="128" height="90"/>
+        <element name="Catalog" positionX="-243" positionY="621" width="128" height="103"/>
+        <element name="Choice" positionX="259" positionY="192" width="128" height="105"/>
+        <element name="Inquiry" positionX="277" positionY="459" width="128" height="118"/>
+        <element name="Lesson" positionX="61" positionY="630" width="128" height="105"/>
+        <element name="PrimaryKey" positionX="-117" positionY="207" width="128" height="120"/>
+        <element name="Question" positionX="70" positionY="387" width="128" height="150"/>
+    </elements>
+</model>

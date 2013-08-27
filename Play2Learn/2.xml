@@ -1,0 +1,34 @@
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd" identifier="choiceMultiple" title="Composition of Water" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>C</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>10</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <choiceInteraction responseIdentifier="MR01" shuffle="true" maxChoices="0">
+            <prompt id="1">
+                <![CDATA[
+                    $\frac{2}{4} + \frac{1}{4}$
+                ]]>
+            </prompt>
+            <simpleChoice id="2" identifier="A" fixed="false"><![CDATA[
+                1
+            ]]>
+            </simpleChoice>
+            <simpleChoice id="3" identifier="B" fixed="false"><![CDATA[
+                $\frac{4}{2}$
+            ]]></simpleChoice>
+            <simpleChoice id="4" identifier="C" fixed="false"><![CDATA[
+                $\frac{3}{4}$
+            ]]></simpleChoice>
+            <simpleChoice id="5" identifier="D" fixed="false"><![CDATA[
+                $\frac{4}{4}$
+            ]]></simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+</assessmentItem>

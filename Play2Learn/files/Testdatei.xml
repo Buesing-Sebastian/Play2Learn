@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<assessmentTest title="Bruchrechnung" xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd" 
+    identifier="RTEST-13">
+    <testPart identifier="Mengentheoretische Grundlagen" navigationMode="linear" submissionMode="individual">
+        <itemSessionControl showFeedback="true" maxAttempts="1" showSolution="false" /> 
+        <assessmentSection identifier="section1" title="Section A" visible="true">
+            <rubricBlock view="candidate">
+                Explizite Mengendarstellungen
+            </rubricBlock>
+            <assessmentItemRef identifier="question1" href="1.xml" />
+            <assessmentItemRef identifier="question2" href="2.xml" />
+            <assessmentItemRef identifier="question3" href="3.xml" />
+            <assessmentItemRef identifier="question4" href="4.xml" />
+            <assessmentItemRef identifier="question5" href="5.xml" />
+            <assessmentItemRef identifier="question6" href="6.xml" />
+        </assessmentSection>
+        <assessmentSection identifier="section2" title="Section B" visible="true">
+            <rubricBlock view="candidate">
+                Deskriptive Mengendarstellungen
+            </rubricBlock>
+            <assessmentItemRef identifier="question7" href="7.xml" />
+            <assessmentItemRef identifier="question8" href="8.xml" />
+            <assessmentItemRef identifier="question9" href="9.xml" />
+        </assessmentSection>
+        <assessmentSection identifier="section3" title="Section C" visible="true">
+            <rubricBlock view="candidate">
+                Konstruktion aus Mengen
+            </rubricBlock>
+            <assessmentItemRef identifier="question10" href="10.xml" />
+            <assessmentItemRef identifier="question11" href="11.xml" />
+            <assessmentItemRef identifier="question12" href="12.xml" />
+            <assessmentItemRef identifier="question13" href="13.xml" />
+            <assessmentItemRef identifier="question14" href="14.xml" />
+            <assessmentItemRef identifier="question15" href="15.xml" />
+        </assessmentSection>
+        <assessmentSection identifier="section4" title="Section D" visible="true">
+            <rubricBlock view="candidate">
+                Potenzmenge und Kardinalität
+            </rubricBlock>
+            <assessmentItemRef identifier="question16" href="16.xml" />
+            <assessmentItemRef identifier="question17" href="17.xml" />
+            <assessmentItemRef identifier="question18" href="18.xml" />
+            <assessmentItemRef identifier="question19" href="19.xml" />
+        </assessmentSection>
+        <assessmentSection identifier="section5" title="Section E" visible="true">
+            <rubricBlock view="candidate">
+                Relationen und Funktionen
+            </rubricBlock>
+            <assessmentItemRef identifier="question20" href="20.xml" />
+            <assessmentItemRef identifier="question21" href="21.xml" />
+            <assessmentItemRef identifier="question22" href="22.xml" />
+        </assessmentSection>
+    </testPart>
+</assessmentTest>
