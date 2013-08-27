@@ -146,6 +146,49 @@
     return CGPointMake(minX + ((maxX - minX) / 2.0f), minY + ((maxY - minY) / 2.0f));
 }
 
+- (CGPoint)centroid
+{
+    // http://stackoverflow.com/questions/2792443/finding-the-centroid-of-a-polygon
+    
+    CGPoint centroid = CGPointMake(0, 0);
+    double signedArea = 0.0;
+    double x0 = 0.0; // Current vertex X
+    double y0 = 0.0; // Current vertex Y
+    double x1 = 0.0; // Next vertex X
+    double y1 = 0.0; // Next vertex Y
+    double a = 0.0;  // Partial signed area
+    
+    // For all vertices except last
+    int i = 0;
+    for ( i = 0; i < (self.allPoints.count - 1); ++i)
+    {
+        x0 = ((NSValue *)[self.allPoints objectAtIndex:i]).CGPointValue.x;
+        y0 = ((NSValue *)[self.allPoints objectAtIndex:i]).CGPointValue.y;
+        x1 = ((NSValue *)[self.allPoints objectAtIndex:i+1]).CGPointValue.x;
+        y1 = ((NSValue *)[self.allPoints objectAtIndex:i+1]).CGPointValue.y;
+        a = x0 * y1 - x1 * y0;
+        signedArea += a;
+        centroid.x += (x0 + x1) * a;
+        centroid.y += (y0 + y1) * a;
+    }
+    
+    // Do last vertex
+    x0 = ((NSValue *)[self.allPoints objectAtIndex:i]).CGPointValue.x;
+    y0 = ((NSValue *)[self.allPoints objectAtIndex:i]).CGPointValue.y;
+    x1 = ((NSValue *)[self.allPoints objectAtIndex:0]).CGPointValue.x;
+    y1 = ((NSValue *)[self.allPoints objectAtIndex:0]).CGPointValue.y;
+    a = x0 * y1 - x1 * y0;
+    signedArea += a;
+    centroid.x += (x0 + x1) * a;
+    centroid.y += (y0 + y1) * a;
+    
+    signedArea *= 0.5;
+    centroid.x /= (6.0 * signedArea);
+    centroid.y /= (6.0 * signedArea);
+    
+    return centroid;
+}
+
 - (CGSize)boundsSize
 {
     CGFloat minX = MAXFLOAT, maxX = 0, minY = MAXFLOAT, maxY = 0;
@@ -458,6 +501,17 @@
             || CGPointEqualToPoint([edgeB startPoint], [edgeA endPoint]));
 }
 
+
+- (CGFloat)shortestDistanceToPoint:(CGPoint)somePoint
+{
+    CGPoint closestpoint = [self pointClosestToPoint:somePoint];
+    
+    // calculate euclidean distance
+    CGFloat thisDistance = sqrtf(powf((somePoint.x - closestpoint.x), 2.0f) + powf((somePoint.y - closestpoint.y), 2.0f));
+    
+    return thisDistance;
+}
+
 - (NSUInteger)indexOfEdge:(P2LGraphEdge *)someEdge ignoringDirection:(BOOL)ignoreDirection
 {
     if (someEdge == nil)
@@ -673,8 +727,8 @@
 {
     if (CGPointEqualToPoint(pointA, pointB))
     {
-        //[NSException raise:NSInvalidArgumentException format:@"cannot create path with start and end being the same point"];
-        return [[P2LGraphPath alloc] initWithEdge:[[P2LGraphEdge alloc] initWithStart:pointA andEnd:pointB]];
+        [NSException raise:NSInvalidArgumentException format:@"cannot create path with start and end being the same point"];
+        //return [[P2LGraphPath alloc] initWithEdge:[[P2LGraphEdge alloc] initWithStart:pointA andEnd:pointB]];
     }
     
     P2LGraphPath *leftPath;

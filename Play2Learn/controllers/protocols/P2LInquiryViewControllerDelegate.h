@@ -13,6 +13,8 @@
 
 @required
 
+- (void)answeredQuestion:(Question *)question withCorrectness:(float)correctness;
+
 - (void)didFinishInquiry:(Inquiry *)inquiry withCorrectness:(CGFloat)correctness;
 
 @end

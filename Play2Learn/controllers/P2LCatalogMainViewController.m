@@ -12,6 +12,7 @@
 #import "P2LConquerViewController.h"
 #import "P2LPathDebugViewController.h"
 #import "P2LLatexXMLConverter.h"
+#import "P2LStatisticsViewController.h"
 
 typedef enum CatalogPlayMode
 {
@@ -114,6 +115,7 @@ CatalogPlayMode;
         {
             Inquiry *inquiry = [[Inquiry alloc] initEntity];
             inquiry.questions = lesson.questions;
+            inquiry.lesson = lesson;
             
             P2LInquiryViewController *controller = [[P2LInquiryViewController alloc] initWithInquiry:inquiry andFrame:self.view.frame];
             controller.mainViewController = self.mainViewController;
@@ -164,7 +166,7 @@ CatalogPlayMode;
 
 - (void)statsButtonClicked
 {
-    P2LPathDebugViewController *controller = [[P2LPathDebugViewController alloc] initWithFrame:self.view.frame];
+    P2LStatisticsViewController *controller = [[P2LStatisticsViewController alloc] initWithFrame:self.view.frame andCatalog:self.catalog];
     controller.mainViewController = self.mainViewController;
     
     [self.mainViewController presentViewController:controller fromDirection:SubViewDirectionRightToLeft];

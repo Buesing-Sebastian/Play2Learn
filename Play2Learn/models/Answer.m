@@ -2,11 +2,12 @@
 //  Answer.m
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 02.06.13.
+//  Created by Sebastian Büsing on 11.08.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
 #import "Answer.h"
+#import "Choice.h"
 #import "Question.h"
 
 
@@ -15,5 +16,7 @@
 @dynamic primaryKey;
 @dynamic text;
 @dynamic question;
+@dynamic choices;
+@dynamic correctAnswerToQuestion;
 
 @end

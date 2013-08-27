@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "P2LInquiryViewController.h"
 #import "P2LMoveUnitsPromptView.h"
+#import "Question+DBAPI.h"
 
 typedef enum ConquerGameState {
 
@@ -29,7 +30,9 @@ typedef enum ConquerGameState {
 
 @interface P2LConquerViewController ()
 
+// Header control elements
 @property (nonatomic, strong) UIButton *skipButton;
+@property (nonatomic, strong) UILabel *headerNoteLabel;
 
 @property (nonatomic, strong) P2LGraphPath *midPath;
 @property (nonatomic, strong) P2LPathView *midPathView;
@@ -39,12 +42,15 @@ typedef enum ConquerGameState {
 @property (nonatomic, strong) NSMutableArray *areaViews;
 @property (nonatomic, strong) NSMutableArray *paths;
 
+@property (nonatomic, strong) NSMutableDictionary *questionPool;
+
 @property (nonatomic, strong) P2LMoveUnitsPromptView *moveUnitsView;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) NSMutableArray *layers;
 
+@property (nonatomic, assign) NSInteger failCounter;
 @property (nonatomic, assign) ConquerGameState currentGameState;
 
 @property (nonatomic, strong) P2LConquerChallengeViewController *challengeViewController;
@@ -62,17 +68,22 @@ typedef enum ConquerGameState {
         _areas = [NSMutableArray new];
         _paths = [NSMutableArray new];
         _layers = [NSMutableArray new];
+        
+        self.failCounter = 0;
         self.skipButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [self.skipButton setTitle:@"Überspringen" forState:UIControlStateNormal];
         self.skipButton.frame = CGRectMake(self.view.frame.size.width - 130, 10, 120, 40);
         self.skipButton.enabled = NO;
-        self.skipButton.alpha = 0.0f;
+        self.skipButton.alpha = 1.0f;
         [self.skipButton addTarget:self action:@selector(skipTurn) forControlEvents:UIControlEventTouchUpInside];
         
+        self.headerNoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 20, self.view.frame.size.width - 270, 20)];
+        self.headerNoteLabel.text = @"Spielfeld wird aufgebaut...";
         //
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 60)];
         [self.view addSubview:self.scrollView];
         [self.view addSubview:self.skipButton];
+        [self.view addSubview:self.headerNoteLabel];
     }
     return self;
 }
@@ -91,6 +102,7 @@ typedef enum ConquerGameState {
     {
         [NSException raise:NSInternalInconsistencyException format:@"Cannot start a conquer game with no lesson!"];
     }
+    [self setupQuestionPool];
     // get the layour counts, which is an array with the first item equal to 1
     // and the others indicating how many areas are around the previous item
     NSArray *layerCounts = [self layerCountBasedOnLessonQuestion];
@@ -100,43 +112,58 @@ typedef enum ConquerGameState {
     // and set it on the scrollView.
     self.scrollView.contentSize = contentSize;
     
-    // the capitol (inner area) always has the same size.
-    CGRect middleRect = CGRectMake(0, 0, capitolWidth, capitolWidth);
-    // create the path for it.
-    self.midPath = [P2LGraphPathGenerator generatePathInsideRect:middleRect withEdgesCount:12];
-    // that path now has to be centered
-    [self centerMidPathInsideContentArea:contentSize andMidBounds:middleRect];
-    // now it can be added as the first layer
-    [self.layers addObject:[NSArray arrayWithObject:self.midPath]];
-    // add path onto area collection
-    [self.paths addObject:self.midPath];
-    
-    // now create the surrounding areas
-    P2LGraphPath *innerPath = self.midPath;
-    
-    for (int i = 1; i < layerCounts.count; i++)
+    @try
     {
-        // grab the parameters
-        CGFloat maxLength = [self maxLengthForLayer:i withTotalLayerCount:layerCounts.count withTotalContentArea:contentSize];
-        int numPaths = [[layerCounts objectAtIndex:i] intValue];
-        // and create the surrounding paths
-        NSArray *surroundingPaths = [P2LGraphPathGenerator generatePathsAroundPath:innerPath withMaxLength:maxLength andNumPaths:numPaths];
+        // the capitol (inner area) always has the same size.
+        CGRect middleRect = CGRectMake(0, 0, capitolWidth, capitolWidth);
+        // create the path for it.
+        self.midPath = [P2LGraphPathGenerator generatePathInsideRect:middleRect withEdgesCount:12];
+        // that path now has to be centered
+        [self centerMidPathInsideContentArea:contentSize andMidBounds:middleRect];
+        // now it can be added as the first layer
+        [self.layers addObject:[NSArray arrayWithObject:self.midPath]];
+        // add path onto area collection
+        [self.paths addObject:self.midPath];
         
-        // add them to the layer array, since here we only create the areas
-        // and add the to contentArea via UIAnimations later.
-        [self.layers addObject:surroundingPaths];
+        // now create the surrounding areas
+        P2LGraphPath *innerPath = self.midPath;
         
-        // create the new innerPath by join the new path
-        // with the current innerPath.
-        for (P2LGraphPath *somePath in surroundingPaths)
+        for (int i = 1; i < layerCounts.count; i++)
         {
-            innerPath = [innerPath graphByJoiningWithAdjacentGraph:somePath];
+            // grab the parameters
+            CGFloat maxLength = [self maxLengthForLayer:i withTotalLayerCount:layerCounts.count withTotalContentArea:contentSize];
+            int numPaths = [[layerCounts objectAtIndex:i] intValue];
+            // and create the surrounding paths
+            NSArray *surroundingPaths = [P2LGraphPathGenerator generatePathsAroundPath:innerPath withMaxLength:maxLength andNumPaths:numPaths];
             
-            // add generatedPath to area collection
-            [self.paths addObject:somePath];
+            // add them to the layer array, since here we only create the areas
+            // and add the to contentArea via UIAnimations later.
+            [self.layers addObject:surroundingPaths];
+            
+            // create the new innerPath by join the new path
+            // with the current innerPath.
+            for (P2LGraphPath *somePath in surroundingPaths)
+            {
+                innerPath = [innerPath graphByJoiningWithAdjacentGraph:somePath];
+                
+                // add generatedPath to area collection
+                [self.paths addObject:somePath];
+            }
         }
     }
+    @catch (NSException *exception)
+    {
+        self.layers = [NSMutableArray new];
+        self.paths = [NSMutableArray new];
+        
+        self.failCounter++;
+        NSLog(@"algorithmn failed: %d", self.failCounter);
+        
+        [self startGame];
+        return;
+    }
     
+        
     [self addlayersViaAnimation];
 }
 
@@ -147,7 +174,8 @@ typedef enum ConquerGameState {
     
     // create inquiry
     Inquiry *inquiry = [[Inquiry alloc] initEntity];
-    inquiry.questions = self.lesson.questions;
+    inquiry.questions = [NSSet setWithArray:[self randomQuestionsMeetingRequiredCount:3]];
+    inquiry.lesson = self.lesson;
     
     self.inquiryController = [[P2LInquiryViewController alloc] initWithInquiry:inquiry andFrame:self.view.frame];
     self.inquiryController.mainViewController = nil;
@@ -217,8 +245,8 @@ typedef enum ConquerGameState {
             {
                 // select the view
                 self.attackedView = pathViewClicked;
-                [self.attackedView setNeedsDisplay];
                 pathViewClicked.selected = YES;
+                [self.attackedView setNeedsDisplay];
                 // and display the conquer startView
                 [self attempt2ConquerAreaFromArea:nil];
             }
@@ -367,6 +395,13 @@ typedef enum ConquerGameState {
 {
     if (correctness >= [self.challengeViewController correctnessRequired])
     {
+        // check win condition
+        if ([[self.layers objectAtIndex:0] objectAtIndex:0] == self.attackedView)
+        {
+            [self userWinAnimation];
+            
+            return;
+        }
         self.attackedView.occupiedByEnemy = NO;
         [self animateNewForcesCount:(self.challengeViewController.numOwnForces + 1) onPathView:self.attackedView];
         [self animateNewForcesCount:1 onPathView:self.selectedView];
@@ -397,6 +432,8 @@ typedef enum ConquerGameState {
 
 - (void)userMoveTurn
 {
+    [self setHeaderNote:@"Einheiten bewegen..."];
+    
     self.currentGameState = ConquerGameStateUserTurnMove;
     self.skipButton.alpha = 1.0f;
     self.skipButton.enabled = YES;
@@ -404,6 +441,8 @@ typedef enum ConquerGameState {
 
 - (void)enemyTurn
 {
+    [self setHeaderNote:@"KI am Zug..."];
+    
     self.currentGameState = ConquerGameStateEnemyTurn;
     
     if (self.selectedView)
@@ -433,6 +472,8 @@ typedef enum ConquerGameState {
     
     // so far no KI, so just switch turn again
     self.currentGameState = ConquerGameStateUserTurnAttack;
+    
+    [self setHeaderNote:@"Gebiet angreifen..."];
 }
 
 - (void)skipTurn
@@ -457,6 +498,110 @@ typedef enum ConquerGameState {
     
     self.selectedView = nil;
     self.attackedView = nil;
+}
+
+#pragma mark - question selection methods
+
+- (void)setupQuestionPool
+{
+    _questionPool = [NSMutableDictionary new];
+    
+    for (Question *question in [self.lesson.questions allObjects])
+    {
+        NSString *key = [NSString stringWithFormat:@"%d", [question primaryId]];
+        NSNumber *rating = [NSNumber numberWithFloat:1.0f];
+        NSNumber *numChosen = [NSNumber numberWithInt:0];
+        NSNumber *lastCorrectness = [NSNumber numberWithFloat:0.0f];
+        NSNumber *avgCorrectness = [NSNumber numberWithFloat:0.0f];
+        
+        NSMutableDictionary *questionDict = [@{@"question": question, @"rating" : rating, @"numChosen" : numChosen,
+                                       @"lastCorrectness" : lastCorrectness, @"avgCorrectness" : avgCorrectness} mutableCopy];
+        
+        [_questionPool setObject:questionDict forKey:key];
+    }
+}
+
+- (void)answeredQuestion:(Question *)question withCorrectness:(float)correctness
+{
+    // grab question from pool
+    NSMutableDictionary *questionDict = [_questionPool objectForKey:[NSString stringWithFormat:@"%d", [question primaryId]]];
+    
+    // grab values
+    int numChosen = [[questionDict objectForKey:@"numChosen"] intValue];
+    float rating = [[questionDict objectForKey:@"rating"] floatValue];
+    float lastCorrectness = correctness;
+    float avgCorrectness = [[questionDict objectForKey:@"avgCorrectness"] floatValue];
+    
+    // update values
+    avgCorrectness = ((float)numChosen * avgCorrectness + correctness) / ((float)numChosen + 1.0f);
+    numChosen++;
+    rating -= 0.3; // subtraction per prompt
+    rating += (1.0f - lastCorrectness) * 0.2f; // addition for mistakes in the last prompt
+    rating += (1.0f - avgCorrectness) * 0.1f; // addition for mistakes in the general
+    
+    // save values
+    [questionDict setValue:[NSNumber numberWithInt:numChosen] forKey:@"numChosen"];
+    [questionDict setValue:[NSNumber numberWithFloat:lastCorrectness] forKey:@"lastCorrectness"];
+    [questionDict setValue:[NSNumber numberWithFloat:avgCorrectness] forKey:@"avgCorrectness"];
+    [questionDict setValue:[NSNumber numberWithFloat:rating] forKey:@"rating"];
+}
+
+- (Question *)randomQuestionFromQuestionPool:(NSArray *)questionPool
+{
+    if (![questionPool count])
+    {
+        [NSException raise:NSInvalidArgumentException format:@"question Pool is empty"];
+    }
+    
+    float barrier = 0;
+    
+    for (NSDictionary *questionDict in questionPool)
+    {
+        float rating = [[questionDict objectForKey:@"rating"] floatValue];
+        
+        barrier += powf(rating, 2.0f) * 1000;
+    }
+    
+    // grab random float between 0 and barrier
+    float random = ((float)arc4random() / ARC4RANDOM_MAX) * barrier;
+    
+    for (NSDictionary *questionDict in questionPool)
+    {
+        float rating = [[questionDict objectForKey:@"rating"] floatValue];
+        
+        float newBarrier = barrier - powf(rating, 2.0f) * 1000;
+        
+        if (newBarrier < random)
+        {
+            return [questionDict objectForKey:@"question"];
+        }
+        else
+        {
+            barrier = newBarrier;
+        }
+    }
+    return [[questionPool objectAtIndex:0] objectForKey:@"question"];
+}
+
+- (NSArray *)randomQuestionsMeetingRequiredCount:(int)count
+{
+    // create an array to collect questions
+    NSMutableArray *questions = [NSMutableArray new];
+    // grab a copy of the question pool
+    NSMutableDictionary *questionPool = [_questionPool mutableCopy];
+    
+    while (questions.count < count && [questionPool allValues].count > 0)
+    {
+        // get random question
+        Question *randomQuestion = [self randomQuestionFromQuestionPool:[questionPool allValues]];
+        
+        // remove that question from the pool
+        [questionPool removeObjectForKey:[NSString stringWithFormat:@"%d", [randomQuestion primaryId]]];
+        
+        // add question to collection
+        [questions addObject:randomQuestion];
+    }
+    return questions;
 }
 
 #pragma mark - initial setup calculations
@@ -570,7 +715,7 @@ typedef enum ConquerGameState {
     // create the contentView
     self.contentView = [[UIView alloc] initWithFrame:contentRect];
     self.contentView.backgroundColor = [UIColor clearColor];
-    self.scrollView.backgroundColor = [UIColor blueColor];
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     // add a tap gesture recognizer to be able to select areas
     UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     [self.contentView addGestureRecognizer:recognizer];
@@ -728,6 +873,8 @@ typedef enum ConquerGameState {
 {
     self.currentGameState = ConquerGameStateInitialized;
     
+    [self setHeaderNote:@"Anfangsgebiet wählen..."];
+    
     // enable interaction
     self.scrollView.scrollEnabled = YES;
     self.scrollView.minimumZoomScale = 0.5;
@@ -830,8 +977,39 @@ typedef enum ConquerGameState {
     
     [self deselectAreas];
     
+    self.skipButton.alpha = 0.0f;
+    self.skipButton.enabled = NO;
+    
     self.currentGameState = ConquerGameStateEnemyTurn;
     [self enemyTurn];
+}
+
+- (void)setHeaderNote:(NSString *)note
+{
+    self.headerNoteLabel.text = note;
+}
+
+- (void)userWinAnimation
+{
+    // display a simple victory label, mark the level as finished and the return to level
+    // overview.
+    UILabel *victoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.center.y-100, 200, 30)];
+    
+    [self.view addSubview:victoryLabel];
+    
+    [UIView animateWithDuration:0.2 delay:0.4 options:UIViewAnimationOptionCurveEaseInOut animations:^(){
+    
+        victoryLabel.center = self.view.center;
+    
+    } completion:^(BOOL finished){
+    
+        [self.mainViewController dismissViewController:self fromDirection:SubViewDirectionLeftToRight];
+    
+    }];
+    
+    // TODO: save level as done
+    
+    [self.view addSubview:victoryLabel];
 }
 
 #pragma mark - UIScrollViewDelegate

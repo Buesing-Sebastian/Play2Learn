@@ -10,6 +10,9 @@
 #import "XMLReader.h"
 #import "P2LQTITestPartImporter.h"
 #import "P2LModelManager.h"
+#import "Answer+DBAPI.h"
+#import "Lesson+DBAPI.h"
+#import "Question+DBAPI.h"
 
 @interface P2LQTIImporter ()
 
@@ -54,11 +57,7 @@
     NSError *error = nil;
     NSDictionary *xmlDictionary = [XMLReader dictionaryForXMLData:data error:&error];
     
-    [self deleteAllObjects:@"Lesson"];
-    [self deleteAllObjects:@"Question"];
-    [self deleteAllObjects:@"Answer"];
-    [self deleteAllObjects:@"Inquiry"];
-    [self deleteAllObjects:@"PrimaryKey"];
+    [self deleteAllObjectsWithCatalog:catalog];
     
     if (xmlDictionary && error == nil)
     {
@@ -98,7 +97,43 @@
     
 }
 
-+ (void)deleteAllObjects:(NSString *)entityName
++ (void)deleteAllObjectsWithCatalog:(Catalog *)catalog
+{
+    // grab lessons
+    NSArray *lessons = [catalog.lessons allObjects];
+    
+    // grab all questions
+    NSMutableArray *questions = [NSMutableArray new];
+    NSMutableArray *answers = [NSMutableArray new];
+    
+    for (Lesson *lesson in questions)
+    {
+        [questions addObjectsFromArray:[lesson.questions allObjects]];
+        
+        // grab all answers
+        for (Question *question in lesson.questions)
+        {
+            [answers addObjectsFromArray:[question.answers allObjects]];
+        }
+    }
+    
+    for (Answer *answer in answers)
+    {
+        [[P2LModelManager currentContext] deleteObject:answer];
+    }
+    
+    for (Question *question in questions)
+    {
+        [[P2LModelManager currentContext] deleteObject:question];
+    }
+    
+    for (Lesson *lesson in lessons)
+    {
+        [[P2LModelManager currentContext] deleteObject:lesson];
+    }
+}
+
++ (void)deleteAllObjects:(NSString *)entityName withCatalog:(Catalog *)catalog
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName

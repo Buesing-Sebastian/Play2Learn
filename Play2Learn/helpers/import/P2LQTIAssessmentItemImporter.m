@@ -113,7 +113,7 @@
                 if (prompt)
                 {
                     question.prompt = [prompt objectForKey:@"text"];
-                    question.difficulty = [NSNumber numberWithInt:[[[defaultValue objectForKey:@"value"] objectForKey:@"text"] intValue]];
+                    question.difficulty = (int16_t)[[[defaultValue objectForKey:@"value"] objectForKey:@"text"] intValue];
                     
                     NSArray *choices = [choiceInteraction objectForKey:@"simpleChoice"];
                     NSArray *correctChoices = [correctResponses isKindOfClass:[NSMutableDictionary class]] ? [correctResponses objectForKey:@"value"] : correctResponses;
@@ -143,6 +143,8 @@
                             {
                                 continue;
                             }
+                            
+                            [question addAnswersObject:importedAnswer];
                             
                             NSString *identifier = [answer objectForKey:@"identifier"];
                             

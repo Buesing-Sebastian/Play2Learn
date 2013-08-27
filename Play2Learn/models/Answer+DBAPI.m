@@ -49,12 +49,12 @@
 
 - (int)primaryId
 {
-    return [self.primaryKey intValue];
+    return self.primaryKey;
 }
 
 - (void)setPrimaryId:(int)primaryId
 {
-    [self setPrimaryKey:[NSNumber numberWithInt:primaryId]];
+    [self setPrimaryKey:primaryId];
 }
 
 - (NSString *)description

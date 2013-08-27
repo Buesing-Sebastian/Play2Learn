@@ -30,6 +30,7 @@
 - (NSArray *)edges;
 - (NSArray *)allPoints;
 
+- (CGPoint)centroid;
 - (CGPoint)midPoint;
 - (CGRect)bounds;
 - (CGSize)boundsSize;
@@ -53,6 +54,8 @@
 - (BOOL)isInsidePoint:(CGPoint)somePoint;
 - (BOOL)isAdjacentToPath:(P2LGraphPath *)somePath;
 - (BOOL)edge:(P2LGraphEdge *)edgeA isConnectedToEdge:(P2LGraphEdge *)edgeB;
+
+- (CGFloat)shortestDistanceToPoint:(CGPoint)somePoint;
 
 - (NSUInteger)indexOfEdge:(P2LGraphEdge *)someEdge ignoringDirection:(BOOL)ignoreDirection;
 

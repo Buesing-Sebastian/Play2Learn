@@ -49,12 +49,34 @@
 
 - (int)primaryId
 {
-    return [self.primaryKey intValue];
+    return self.primaryKey;
 }
 
 - (void)setPrimaryId:(int)primaryId
 {
-    [self setPrimaryKey:[NSNumber numberWithInt:primaryId]];
+    [self setPrimaryKey:primaryId];
+}
+
++ (NSArray *)allInquiriesForCatalog:(Catalog *)catalog
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:[self entityName]];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"started" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"lesson.catalog.primaryKey = %d", catalog.primaryKey]];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    [fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *result = [[P2LModelManager currentContext] executeFetchRequest:fetchRequest error:&error];
+    
+    if (error)
+    {
+        NSLog(@"muh!");
+    }
+    
+    return result;
 }
 
 @end

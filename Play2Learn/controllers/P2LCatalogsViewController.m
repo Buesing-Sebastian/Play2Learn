@@ -37,9 +37,17 @@
         CGRect labelFrame = CGRectMake(0, 10, 200, 30);
         self.titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
         self.titleLabel.text = @"Fragenkataloge";
+        self.titleLabel.textColor = [UIColor whiteColor];
+        self.titleLabel.font = [UIFont fontWithName:@"Baskerville-SemiBold" size:20.0];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.center = CGPointMake(self.view.center.x, 25);
         self.titleLabel.backgroundColor = [UIColor clearColor];
+        
+//        for ( NSString *familyName in [UIFont familyNames] )
+//        {
+//            NSLog(@"Family %@", familyName);
+//            NSLog(@"Names = %@", [UIFont fontNamesForFamilyName:familyName]);
+//        }
         
         self.plusButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.plusButton.frame = CGRectMake(self.view.frame.size.width - 94, 10, 84, 44);

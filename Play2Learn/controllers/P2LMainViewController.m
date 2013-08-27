@@ -68,10 +68,21 @@
     
     // create content view
     self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, thisSize.width, thisSize.height)];
+    
+//    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"felt.jpg"]];
+//    
+//    [self.view addSubview:backgroundImageView];
+//    
+//    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"header.jpg"]];
+//    
+//    [self.view addSubview:headerImageView];
+    
     [self.contentView addSubview:self.hintLabel];
     [self.contentView addSubview:self.catalogSettingsButton];
     [self.contentView addSubview:self.catalogSelectionButton];
     [self.contentView addSubview:self.logo];
+    
+    
     
     // create the viewController stack
     self.viewControllerStack = [NSMutableArray new];

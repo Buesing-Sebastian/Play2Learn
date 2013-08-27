@@ -2,25 +2,26 @@
 //  Question.h
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 31.05.13.
+//  Created by Sebastian Büsing on 11.08.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "Lesson.h"
-#import "Answer.h"
 
+@class Answer, Choice, Inquiry, Lesson;
 
 @interface Question : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
+@property (nonatomic) int16_t difficulty;
+@property (nonatomic) int32_t primaryKey;
 @property (nonatomic, retain) NSString * prompt;
-@property (nonatomic, retain) NSNumber * difficulty;
-@property (nonatomic, retain) NSNumber * primaryKey;
+@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet *answers;
 @property (nonatomic, retain) NSSet *correctAnswers;
 @property (nonatomic, retain) Lesson *lesson;
+@property (nonatomic, retain) NSSet *inquiries;
+@property (nonatomic, retain) NSSet *choices;
 @end
 
 @interface Question (CoreDataGeneratedAccessors)
@@ -34,5 +35,15 @@
 - (void)removeCorrectAnswersObject:(Answer *)value;
 - (void)addCorrectAnswers:(NSSet *)values;
 - (void)removeCorrectAnswers:(NSSet *)values;
+
+- (void)addInquiriesObject:(Inquiry *)value;
+- (void)removeInquiriesObject:(Inquiry *)value;
+- (void)addInquiries:(NSSet *)values;
+- (void)removeInquiries:(NSSet *)values;
+
+- (void)addChoicesObject:(Choice *)value;
+- (void)removeChoicesObject:(Choice *)value;
+- (void)addChoices:(NSSet *)values;
+- (void)removeChoices:(NSSet *)values;
 
 @end

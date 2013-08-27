@@ -17,6 +17,5 @@
 
 + (void)importDataFromFile:(NSString *)filePath;
 
-+ (void)deleteAllObjects:(NSString *)entityName;
 
 @end

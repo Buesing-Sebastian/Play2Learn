@@ -1,0 +1,357 @@
+%% LyX 2.0.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\begin{document}
+
+\section{Test - Modal Checking}
+
+\section{Grundbegriffe}
+
+\subsubsection{A first order represantation is a tuple:}%
+\footnote{Richtige Antwort: C%
+}
+\begin{itemize}
+\item $\mathcal{F} = (D, V, \mathcal{S}, \mathcal{R})$.
+\item $\mathcal{F} = (V, D, \mathcal{S}, \mathcal{R}_0)$.
+\item $\mathcal{F} = (V, D, \mathcal{S}_0, \mathcal{R})$.
+\item $\mathcal{F}_1 = (V, D, \mathcal{S}_0, \mathcal{R})$.
+\end{itemize}
+
+
+\subsubsection{Bei der "first order represantation" gilt:}%
+\footnote{Richtige Antwort: B%
+}
+\begin{itemize}
+\item $D$ is an infinite domain or universe.
+\item $D$ is a finite domain or universe.
+\item $V$ is an infinite domain or universe.
+\item $V$ is a finite domain or universe.
+\end{itemize}
+
+
+\subsubsection{Bei der "first order represantation" gilt:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item $V$ is a set of states ranging over (subsets of) D.
+\item $V$ is a set of varibales ranging over (subsets of) D.
+\item A valuation of $V$ is intended to characterize a system's state, i. e. the information that determines the future(s) of the system.
+\item $V$ is intended to characterize a system's possible next states.
+\end{itemize}
+
+
+\subsubsection{Bei der "first order represantation" gilt:}%
+\footnote{Richtige Antwort: B%
+}
+\begin{itemize}
+\item $S_0$ is the system's initial state.
+\item $S_0$ is a first order formula over V, intended to characterize the system's initial states.
+\item $S_0$ is a first order formula over D, intended to characterize the system's initial states.
+\item $S_0$ is a CTL formula.
+\end{itemize}
+
+
+\subsubsection{Bei der "first order represantation" gilt:}%
+\footnote{Richtige Antwort: A%
+}
+\begin{itemize}
+\item $R$ is a first order formula over V, V', intended to characterize the systems possible next states. V is the set of present state variables. V' is a set of next state variables.
+\item $R$ is a first order formula over V, V', intended to characterize the systems possible next states. V is the set of next state variables. V' is a set of present state variables.
+\item $D$ is a first order formula over V, V', intended to characterize the systems possible next states. V is the set of next state variables. V' is a set of present state variables.
+\item $D$ is a first order formula over V, V', intended to characterize the systems possible next states. V is the set of present state variables. V' is a set of next state variables.
+\end{itemize}
+
+
+\subsubsection{A Kripke structure is a tupel:}%
+\footnote{Richtige Antwort: C%
+}
+\begin{itemize}
+\item $K = (S, I, \delta, L)$.
+\item $K = (S, I, \delta, AP, l)$.
+\item $K = (S, I, \delta, AP, L)$.
+\item $K = (S, I, \Delta, AP, L)$.
+\end{itemize}
+
+
+\subsubsection{For a Kripke structure:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item $S$ is a set of starting (i.e. initial) states.
+\item $I$ is a set of initial states.
+\item $I \subseteq S$ is the subset of initial states.
+\item $S \subseteq I$ is the subset of starting (i.e. initial) states.
+\end{itemize}
+
+
+\subsubsection{For a Kripke structure:}%
+\footnote{Richtige Antwort: A%
+}
+\begin{itemize}
+\item $\delta \subseteq S \times S$ is the translation relation.
+\item $\delta \subseteq S \times L$ is the translation relation.
+\item $\delta \subseteq L \times L$ is the translation relation.
+\item $\delta \subseteq I \times S$ is the translation relation.
+\end{itemize}
+
+
+\subsubsection{For a Kripke structure:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item $AP$ is a set of allowed propositions.
+\item $AP$ is a set of atomic propositions.
+\item $L : S \rightarrow 2^{AP}$ (elements of $2^{AP}$ are called labels) is a labelling function.
+\item $L : I \rightarrow 2^{AP}$ (elements of $2^{AP}$ are called labels) is a labelling function.
+\end{itemize}
+
+
+\section{Computation Tree Logic:}
+
+\subsubsection{EX $\varphi$:}%
+\footnote{Richtige Antwort: A%
+}
+\begin{itemize}
+\item exists path $s_0s_1$... so that $\mathcal{K},s_1 \models \varphi$.
+\item exists path $s_0s_1$... so that $\mathcal{K},s_0 \models \varphi$.
+\item exists path $s_0s_1$... exists $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... so that $\mathcal{K},s_{0,1} \models \varphi$.
+\end{itemize}
+
+
+\subsubsection{EF $\varphi$:}%
+\footnote{Richtige Antwort: C%
+}
+\begin{itemize}
+\item exists path $s_0s_1$... so that $\mathcal{K},s_1 \models \varphi$.
+\item exists path $s_0s_1$... $\forall i \in \mathrm{N}$ : $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... exists $i \in \mathrm{N}$ : $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... so that $\mathcal{K},s_{0,1} \models \varphi$.
+\end{itemize}
+
+
+\subsubsection{EG $\varphi$:}%
+\footnote{Richtige Antwort: B%
+}
+\begin{itemize}
+\item exists path $s_0s_1$... so that $\mathcal{K},s_1 \models \varphi$.
+\item exists path $s_0s_1$... $\forall i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... exists $i \in \mathrm{N}$ : $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... so that $\mathcal{K},s_{0,1} \models \varphi$.
+\end{itemize}
+
+
+\subsubsection{$\varphi$ EU $\psi$:}%
+\footnote{Richtige Antwort: D%
+}
+\begin{itemize}
+\item exists path $s_0s_1$... and $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \psi$.
+\item exists path $s_0s_1$... $\forall i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... and $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \psi$ and $\mathcal{K}, s_j \models \varphi$ $\forall j$ with $0 \leq j \leq i$.
+\item exists path $s_0s_1$... and $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \psi$ and $\mathcal{K}, s_j \models \varphi$ $\forall j$ with $0 \leq j < i$.
+\end{itemize}
+
+
+\subsubsection{AX $\varphi$:}%
+\footnote{Richtige Antwort: A%
+}
+\begin{itemize}
+\item for all paths $s_0s_1$... follows $\mathcal{K},s_1 \models \varphi$.
+\item exists paths $s_0s_1$... so that $\mathcal{K},s_0 \models \varphi$.
+\item for all paths $s_0s_1$... exists $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \varphi$.
+\item exists path $s_0s_1$... so that $\mathcal{K},s_{0,1} \models \varphi$.
+\end{itemize}
+
+
+\subsubsection{AF $\varphi$:}%
+\footnote{Richtige Antwort: C%
+}
+\begin{itemize}
+\item for all paths $s_0s_1$... follows $\mathcal{K},s_1 \models \varphi$.
+\item exists paths $s_0s_1$... so that $\mathcal{K},s_0 \models \varphi$.
+\item for all paths $s_0s_1$... exists $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \varphi$.
+\item for all paths $s_0s_1$... exists $i \in \mathrm{N}$ so that $\mathcal{K},s_{1...i} \models \varphi$.
+\end{itemize}
+
+
+\subsubsection{AG $\varphi$:}%
+\footnote{Richtige Antwort: B%
+}
+\begin{itemize}
+\item for all paths $s_0s_1$... : $\mathcal{K},s_1 \models \varphi$.
+\item for all paths $s_0s_1$... : $\forall i \in \mathrm{N}$ : $\mathcal{K},s_i \models \varphi$.
+\item for all paths $s_0s_1$... exists $i \in \mathrm{N}$ : $\mathcal{K},s_i \models \varphi$.
+\item for all paths $s_0s_1$... : $\mathcal{K},s_{0,1} \models \varphi$.
+\end{itemize}
+
+
+\subsubsection{$\varphi$ AU $\psi$:}%
+\footnote{Richtige Antwort: D%
+}
+\begin{itemize}
+\item for all paths $s_0s_1$... exists $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \psi$ and $\mathcal{K},s_i \models \varphi$.
+\item for all paths $s_0s_1$... : $\forall i \in \mathrm{N}$ : $\mathcal{K},s_i \models \psi$ and $\mathcal{K}, s_j \models \varphi$ $\forall j$ with $0 \leq j < i$.
+\item for all paths $s_0s_1$... and $\forall i \in \mathrm{N}$ : $\mathcal{K},s_i \models \psi$ and $\mathcal{K}, s_j \models \varphi$ $\forall j$ with $0 \leq j \leq i$.
+\item for all paths $s_0s_1$... exists $i \in \mathrm{N}$ so that $\mathcal{K},s_i \models \psi$ and $\mathcal{K}, s_j \models \varphi$ $\forall j$ with $0 \leq j < i$.
+\end{itemize}
+
+
+\section{Computation Tree Logic - Anwendung/Gesetze:}
+
+\subsubsection{Starvation freedom for Peterson's algorithm:}%
+\footnote{Richtige Antwort: A%
+}
+\begin{itemize}
+\item {\bf AG} $((Q_2 \rightarrow $ {\bf AF} $ Q_4 ) \wedge (R_2 \rightarrow $ {\bf AF} $ R_4))$.
+\item {\bf AF} $((Q_2 \rightarrow $ {\bf AG} $ Q_4 ) \wedge (R_2 \rightarrow $ {\bf AG} $ R_4))$.
+\item {\bf EG} $((Q_2 \rightarrow $ {\bf AF} $ Q_4 ) \wedge (R_2 \rightarrow $ {\bf AF} $ R_4))$
+\item {\bf AG} $((Q_2 \rightarrow $ {\bf EF} $ Q_4 ) \wedge (R_2 \rightarrow $ {\bf EF} $ R_4))$
+\end{itemize}
+
+
+\subsubsection{Mutual Exclusion for Peterson's algorithm:}%
+\footnote{Richtige Antwort: C%
+}
+\begin{itemize}
+\item {\bf AG} $(Q_4 \vee R_4 )$.
+\item {\bf EG} $(Q_4 \vee R_4 )$.
+\item {\bf AG} $(\lnot{Q_4} \vee \lnot{R_4} )$.
+\item {\bf EG} $((Q_2 \rightarrow \lnot${\bf AG} $ Q_4 ) \wedge (R_2 \rightarrow \lnot${\bf AG} $ R_4))$
+\end{itemize}
+
+
+\subsubsection{Relations between bolean and temporal operators:}%
+\footnote{Richtige Antwort: A,D%
+}
+\begin{itemize}
+\item {\bf EX}$(\varphi_1 \vee \varphi_2) \equiv$ {\bf EX}$\varphi_1 \vee $ {\bf EX}$\varphi_2$.
+\item {\bf EX}$(\varphi_1 \vee \varphi_2) \equiv$ {\bf EX}$\varphi_1 \wedge $ {\bf EX}$\varphi_2$.
+\item {\bf AX}$(\varphi_1 \vee \varphi_2) \equiv$ {\bf AX}$\varphi_1 \vee $ {\bf AX}$\varphi_2$.
+\item {\bf AX}$(\varphi_1 \wedge \varphi_2) \equiv$ {\bf AX}$\varphi_1 \wedge $ {\bf AX}$\varphi_2$.
+\end{itemize}
+
+
+\subsubsection{Relations between bolean and temporal operators:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item {\bf EX}$\lnot\varphi \equiv$ {\bf EG AX}$\varphi$.
+\item {\bf EX}$\lnot\varphi \equiv \lnot${\bf AX}$\varphi$.
+\item {\bf EF}$(\varphi_1 \vee \varphi_2) \equiv$ {\bf EF}$\varphi_1 \vee $ {\bf EF}$\varphi_2$.
+\item {\bf EF}$(\varphi_1 \wedge \varphi_2) \equiv$ {\bf EF}$\varphi_1 \wedge $ {\bf EF}$\varphi_2$.
+\end{itemize}
+
+
+\subsubsection{Relations between bolean and temporal operators:}%
+\footnote{Richtige Antwort: D%
+}
+\begin{itemize}
+\item {\bf EX}$\lnot\varphi \equiv$ {\bf EG AX}$\varphi$.
+\item {\bf AG}$(\lnot\varphi_1 \vee \lnot\varphi_2) \equiv$ {\bf EG}$\varphi_1 \vee $ {\bf EG}$\varphi_2$.
+\item {\bf AG}$(\varphi_1 \vee \varphi_2) \equiv$ {\bf AG}$\varphi_1 \vee $ {\bf AG}$\varphi_2$.
+\item {\bf AG}$(\varphi_1 \wedge \varphi_2) \equiv$ {\bf AG}$\varphi_1 \wedge $ {\bf AG}$\varphi_2$.
+\end{itemize}
+
+
+\subsubsection{Relations between bolean and temporal operators:}%
+\footnote{Richtige Antwort: A,D%
+}
+\begin{itemize}
+\item {\bf EF}$\lnot\varphi \equiv \lnot$ {\bf AG}$\varphi$.
+\item {\bf EF}$\lnot\varphi \equiv \lnot$ {\bf AF}$\varphi$.
+\item {\bf EG}$\lnot\varphi \equiv $ {\bf AG}$\varphi$.
+\item {\bf EG}$\lnot\varphi \equiv \lnot$ {\bf AF}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Idempotence laws:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item {\bf EF}$\lnot${\bf EF}$\varphi \equiv $ {\bf AF}$\varphi$.
+\item {\bf EF EF}$\varphi \equiv $ {\bf EF}$\varphi$.
+\item {\bf AF AF}$\varphi \equiv $ {\bf AF}$\varphi$.
+\item {\bf AF EX}$\varphi \equiv $ {\bf AG}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Idempotence laws:}%
+\footnote{Richtige Antwort: B,D%
+}
+\begin{itemize}
+\item {\bf EF}$\lnot${\bf EF}$\varphi \equiv $ {\bf AF}$\varphi$.
+\item {\bf EG EG}$\varphi \equiv $ {\bf EG}$\varphi$.
+\item {\bf AG AG}$\varphi \equiv $ {\bf AG}$\lnot\varphi$.
+\item {\bf AG AG}$\varphi \equiv $ {\bf AG}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Idempotence laws:}%
+\footnote{Richtige Antwort: A,D%
+}
+\begin{itemize}
+\item $\varphi$ {\bf EU }$(\varphi$ {\bf EU }$\psi) \equiv (\varphi$ {\bf EU }$\psi)$.
+\item $\varphi$ {\bf EU }$(\varphi$ {\bf EU }$\psi) \equiv (\varphi$ {\bf EU }$\lnot\psi)$.
+\item $\varphi$ {\bf AU }$(\psi$ {\bf AU }$\varphi) \equiv (\psi$ {\bf AU }$\varphi)$.
+\item $\varphi$ {\bf AU }$(\varphi$ {\bf AU }$\psi) \equiv (\varphi$ {\bf AU }$\psi)$.
+\end{itemize}
+
+
+\subsubsection{Relations between bolean and temporal operators:}%
+\footnote{Richtige Antwort: B,D%
+}
+\begin{itemize}
+\item {\bf AG}$\lnot\varphi \equiv \lnot$ {\bf AG}$\varphi$.
+\item {\bf AG}$\varphi \equiv \lnot$ {\bf EF}$\lnot\varphi$.
+\item {\bf AF}$\varphi \equiv $ {\bf true AG}$\varphi$.
+\item {\bf AF}$\varphi \equiv $ {\bf true AU}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Relations between bolean and temporal operators:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item {\bf AF}$\lnot\varphi \equiv \lnot$ {\bf AG}$\varphi$.
+\item {\bf AF}$\varphi \equiv \lnot$ {\bf EG}$\lnot\varphi$.
+\item {\bf EF}$\varphi \equiv $ {\bf true EU}$\varphi$.
+\item {\bf EF}$\varphi \equiv $ {\bf true EX EG}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Unfolding laws:}%
+\footnote{Richtige Antwort: A,C%
+}
+\begin{itemize}
+\item {\bf EF}$\varphi \equiv \phi \vee$ {\bf EX EF}$\varphi$.
+\item {\bf EF}$\varphi \equiv \phi \wedge$ {\bf EX EF}$\varphi$.
+\item {\bf EG}$\varphi \equiv \phi \wedge$ {\bf EX EG}$\varphi$.
+\item {\bf EG}$\varphi \equiv \phi \vee$ {\bf EX EG}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Unfolding laws:}%
+\footnote{Richtige Antwort: A,C%
+}
+\begin{itemize}
+\item {\bf AF}$\varphi \equiv \phi \vee$ {\bf AX AF}$\varphi$.
+\item {\bf AF}$\varphi \equiv \phi \wedge$ {\bf AX AF}$\varphi$.
+\item {\bf AG}$\varphi \equiv \phi \wedge$ {\bf AX AG}$\varphi$.
+\item {\bf AG}$\varphi \equiv \phi \vee$ {\bf AX AG}$\varphi$.
+\end{itemize}
+
+
+\subsubsection{Idempotence laws:}%
+\footnote{Richtige Antwort: B,C%
+}
+\begin{itemize}
+\item $(\varphi$ {\bf EU }$\psi) \equiv \varphi \wedge (\psi$ $\vee$ {\bf EX }$(\varphi$ {\bf EU }$\psi))$.
+\item $(\varphi$ {\bf EU }$\psi) \equiv \psi \vee (\varphi$ $\wedge$ {\bf EX }$(\varphi$ {\bf EU }$\psi))$.
+\item $(\varphi$ {\bf AU }$\psi) \equiv \psi \vee (\varphi$ $\wedge$ {\bf AX }$(\varphi$ {\bf AU }$\psi))$.
+\item $(\varphi$ {\bf AU }$\psi) \equiv \psi \wedge (\varphi$ $\vee$ {\bf AX }$(\varphi$ {\bf AU }$\psi))$.
+\end{itemize}
+
+\end{document}

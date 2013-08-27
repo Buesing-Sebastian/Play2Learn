@@ -8,7 +8,10 @@
 
 #import "Inquiry.h"
 #import "P2LDBAPIProtocol.h"
+#import "Catalog.h"
 
 @interface Inquiry (DBAPI) <P2LDBAPIProtocol>
+
++ (NSArray *)allInquiriesForCatalog:(Catalog *)catalog;
 
 @end

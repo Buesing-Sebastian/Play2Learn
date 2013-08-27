@@ -35,7 +35,7 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
         // Initialization code
         _path = path;
         self.backgroundColor = [UIColor clearColor];
-        self.pathColor = [UIColor blueColor];
+        self.pathColor = [UIColor redColor];
         self.strokeWidth = 2;
         self.occupiedByEnemy = YES;
         _forcesCount = 0;
@@ -44,8 +44,15 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
         self.forcesLabel.center = CGPointMake((self.frame.size.width / 2.0f), (self.frame.size.height / 2.0f));
         self.forcesLabel.backgroundColor = [UIColor clearColor];
         self.forcesLabel.text = @"0";
+        self.forcesLabel.textAlignment = NSTextAlignmentCenter;
         self.forcesLabel.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
         self.forcesLabel.textColor = [UIColor redColor];
+        
+        CGPoint centroid = [self.path centroid];
+        
+        self.forcesLabel.center = CGPointMake(centroid.x - self.frame.origin.x, centroid.y - self.frame.origin.y);
+        
+        NSLog(@"midPoint: (%f, %f) - centroid: (%f, %f)", self.forcesLabel.center.x, self.forcesLabel.center.y, centroid.x - self.frame.origin.x, centroid.y - self.frame.origin.y);
         
         self.texture = [UIImage imageNamed:@"grassland.png"];
 
@@ -54,10 +61,7 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
     return self;
 }
 
-
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void)drawRect:(CGRect)rect
 {
     CGFloat xOffset = self.frame.origin.x;
     CGFloat yOffset = self.frame.origin.y;
@@ -67,7 +71,50 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
     CGFloat height = self.bounds.size.height;
     CGContextTranslateCTM(context, 0.0, height);
 	CGContextScaleCTM(context, 1.0, -1.0);
-//    CGContextBeginTransparencyLayer(context, NULL);
+    
+    
+    if (self.selected)
+    {
+        CGContextMoveToPoint(context, [_path startPoint].x - xOffset, height - ([_path startPoint].y - yOffset));
+        
+        for (P2LGraphEdge *edge in [_path edges])
+        {
+            CGContextAddLineToPoint(context, [edge endPoint].x - xOffset, height - ([edge endPoint].y - yOffset));
+        }
+    }
+    
+    UIColor *selectedColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5f];
+    CGContextSetFillColorWithColor(context, selectedColor.CGColor);
+    CGContextFillPath(context);
+    
+    for (P2LGraphEdge *edge in [_path edges])
+    {
+        CGPoint startPoint = [edge startPoint];
+        CGPoint endPoint = [edge endPoint];
+        
+        startPoint.x = startPoint.x - xOffset;
+        startPoint.y = height - (startPoint.y - yOffset);
+        endPoint.x = endPoint.x - xOffset;
+        endPoint.y = height - (endPoint.y - yOffset);
+        
+        drawStroke(UIGraphicsGetCurrentContext(), self.strokeWidth, startPoint, endPoint, self.pathColor.CGColor);
+    }
+    
+    
+}
+
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)_drawRect:(CGRect)rect
+{
+    CGFloat xOffset = self.frame.origin.x;
+    CGFloat yOffset = self.frame.origin.y;
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGFloat height = self.bounds.size.height;
+    CGContextTranslateCTM(context, 0.0, height);
+	CGContextScaleCTM(context, 1.0, -1.0);
     
 //    if (self.selected)
 //    {
@@ -91,18 +138,24 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
     
     CGContextClip(context);
     
-    CGContextDrawImage(context, CGRectMake(0, 0, 512, 512), self.texture.CGImage);
+    //CGContextDrawImage(context, CGRectMake(0, 0, 512, 512), self.texture.CGImage);
     
-    //CGContextSetBlendMode(context, kCGBlendModeSourceIn);
-    
-    //[self.texture drawInRect:self.bounds];
-    
-//    CGContextEndTransparencyLayer(context);
 //    }
 //    else
 //    {
         if (self.selected)
         {
+            //
+//            CGPoint centroid = [self.path centroid];
+//            CGFloat radius = [self.path shortestDistanceToPoint:centroid];
+//            
+//            
+//            CGContextAddArc(context, centroid.x - self.frame.origin.x, centroid.y - self.frame.origin.y, radius, 0, M_PI_2, 1);
+//            //CGContextDrawPath(context, kCGPathStroke);
+//            UIColor *selectedColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5f];
+//            CGContextSetFillColorWithColor(context, selectedColor.CGColor);
+//            CGContextFillPath(context);
+            
             CGContextRef context= UIGraphicsGetCurrentContext();
             CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1.0);
             CGContextSetLineWidth(context, 1.0);

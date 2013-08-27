@@ -84,6 +84,8 @@
     Catalog *catalog = (Catalog *)[self.catalogs objectAtIndex:indexPath.row];
     
     cell.textLabel.text = catalog.name;
+    cell.textLabel.textColor = [UIColor blackColor];
+    cell.textLabel.font = [UIFont fontWithName:@"Baskerville-SemiBold" size:20.0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;

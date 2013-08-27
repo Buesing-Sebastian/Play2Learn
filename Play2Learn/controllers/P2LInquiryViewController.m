@@ -11,6 +11,8 @@
 #import "P2LStatisticsView.h"
 #import "Question+DBAPI.h"
 #import "Choice+DBChoice.h"
+#import "Lesson+DBAPI.h"
+#import "Inquiry+DBAPI.h"
 #import "P2LModelManager.h"
 
 @interface P2LInquiryViewController ()
@@ -50,6 +52,9 @@
 {
     [self setDefaults];
     
+    self.inquiry.started = [[NSDate new] timeIntervalSince1970];
+    [self.inquiry save];
+    
     P2LQuestionView *nextView = [self nextQuestionView];
     [self slideInNewQuestionView:nextView];
 }
@@ -78,6 +83,7 @@
     {
         return;
     }
+    float correctness = self.correctAnswers;
     
     Question *currentQuestion = [self.questions objectAtIndex:self.currentQuestionIndex];
     
@@ -114,9 +120,16 @@
         
         [[P2LModelManager currentContext] save:&error];
         
+        [self.inquiry addChoicesObject:choice];
+        [self.inquiry save];
         [currentChoices addObject:choice];
     }
     [self.choices setObject:currentChoices forKey:[NSString stringWithFormat:@"%d", self.currentQuestionIndex]];
+    
+    // calculate correctness for question
+    correctness = (self.correctAnswers - correctness) / (float)currentQuestion.answers.count;
+    // inform delegate
+    [self.delegate answeredQuestion:currentQuestion withCorrectness:correctness];
     
     [self.currentView enableNextButton];
 }
@@ -170,9 +183,6 @@
 
 - (void)slideInNewQuestionView:(P2LQuestionView *)questionView
 {
-//    [self.delegate didFinishInquiry:self.inquiry withCorrectness:100];
-//    return;
-    
     CGRect mainFrame = self.view.frame;
     
     mainFrame.origin.x = mainFrame.size.width;
@@ -206,6 +216,12 @@
     self.statisticsView.questionCount = [self.questions count];
     self.statisticsView.percentCorrect = (float)self.correctAnswers;
     self.statisticsView.percentCorrect /= (float)(self.correctAnswers + self.wrongAnsers);
+    
+    // save score
+    self.inquiry.score = self.statisticsView.percentCorrect;
+    self.inquiry.finished = [[NSDate new] timeIntervalSince1970];
+    [self.inquiry save];
+    
     self.statisticsView.percentCorrect *= 100.0f;
     
     [self.view addSubview:self.statisticsView];

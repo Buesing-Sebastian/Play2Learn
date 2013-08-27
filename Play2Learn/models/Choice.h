@@ -2,7 +2,7 @@
 //  Choice.h
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 05.06.13.
+//  Created by Sebastian Büsing on 11.08.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
@@ -13,9 +13,10 @@
 
 @interface Choice : NSManagedObject
 
+@property (nonatomic) BOOL correct;
 @property (nonatomic) BOOL value;
-@property (nonatomic, retain) Question *question;
 @property (nonatomic, retain) Answer *answer;
 @property (nonatomic, retain) Inquiry *inquiry;
+@property (nonatomic, retain) Question *question;
 
 @end
