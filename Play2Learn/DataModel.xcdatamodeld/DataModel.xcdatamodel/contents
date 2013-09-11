@@ -3,7 +3,7 @@
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="primaryKey" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="choices" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Choice" inverseName="answer" inverseEntity="Choice" syncable="YES"/>
+        <relationship name="choices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Choice" inverseName="answer" inverseEntity="Choice" syncable="YES"/>
         <relationship name="correctAnswerToQuestion" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="correctAnswers" inverseEntity="Question" syncable="YES"/>
         <relationship name="question" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Question" inverseName="answers" inverseEntity="Question" syncable="YES"/>
     </entity>
@@ -63,7 +63,7 @@
         <relationship name="lesson" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="questions" inverseEntity="Lesson" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Answer" positionX="-234" positionY="441" width="128" height="118"/>
+        <element name="Answer" positionX="-234" positionY="405" width="128" height="118"/>
         <element name="Catalog" positionX="-243" positionY="621" width="128" height="103"/>
         <element name="Choice" positionX="216" positionY="192" width="128" height="118"/>
         <element name="Conquest" positionX="322" positionY="702" width="128" height="88"/>

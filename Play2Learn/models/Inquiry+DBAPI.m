@@ -79,4 +79,31 @@
     return result;
 }
 
+- (NSString *)timeSpanStringUsingFormat:(NSString *)formatString
+{
+    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:self.started];
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:self.finished];
+    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:formatString];
+    
+    NSString *startString = [format stringFromDate:startDate];
+    NSString *endString = [format stringFromDate:endDate];
+    
+    int diffInSeconds = self.finished - self.started;
+    
+    NSString *spanString;
+    
+    if (diffInSeconds <= 60)
+    {
+        spanString = [NSString stringWithFormat:@"%d Sekunden", diffInSeconds];
+    }
+    else
+    {
+        spanString = [NSString stringWithFormat:@"%d Minuten", (int)((float)diffInSeconds / 60.0f)];
+    }
+    
+    return [NSString stringWithFormat:@"%@ - %@  (%@)", startString, endString, spanString];
+}
+
 @end

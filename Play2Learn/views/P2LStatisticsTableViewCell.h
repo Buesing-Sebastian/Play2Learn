@@ -17,4 +17,6 @@
 @property (nonatomic, strong) UILabel *questionsLabel;
 @property (nonatomic, strong) UILabel *percentScoreLabel;
 
+- (void)setupWithFrame:(CGRect)frame;
+
 @end

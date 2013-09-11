@@ -28,7 +28,9 @@
     if (self)
     {
         //
-        CGRect tableViewFrame = CGRectMake(20, 55, self.view.frame.size.width - 40, self.view.frame.size.height - 40);
+        CGFloat yOffset = 55.0f;
+        
+        CGRect tableViewFrame = CGRectMake(20, yOffset, self.view.frame.size.width - 40, self.view.frame.size.height - yOffset);
         self.tableView = [[UITableView alloc] initWithFrame:tableViewFrame];
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.delegate = self;
@@ -42,12 +44,6 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.center = CGPointMake(self.view.center.x, 25);
         self.titleLabel.backgroundColor = [UIColor clearColor];
-        
-//        for ( NSString *familyName in [UIFont familyNames] )
-//        {
-//            NSLog(@"Family %@", familyName);
-//            NSLog(@"Names = %@", [UIFont fontNamesForFamilyName:familyName]);
-//        }
         
         self.plusButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         self.plusButton.frame = CGRectMake(self.view.frame.size.width - 94, 10, 84, 44);

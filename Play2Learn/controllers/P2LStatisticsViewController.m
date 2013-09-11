@@ -78,12 +78,13 @@
     if (!cell)
     {
         cell = [[P2LStatisticsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        [cell setupWithFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, self.view.frame.size.width, cell.frame.size.height)];
     }
     Inquiry *inquiry = (Inquiry *)[self.inquiries objectAtIndex:indexPath.row];
     
     cell.cellIcon.image = [UIImage imageNamed:@"conquer.png"];
     cell.lessonLabel.text = inquiry.lesson.name;
-    cell.timeSpanLabel.text = [self timeSpanStringWithStartDate:inquiry.started andEndDate:inquiry.finished];
+    cell.timeSpanLabel.text = [inquiry timeSpanStringUsingFormat:@"dd/MM/yyyy HH:mm"];
     cell.scoreLabel.text = @"score:";
     cell.questionsLabel.text = [NSString stringWithFormat:@"%d questions", inquiry.questions.count];
     cell.percentScoreLabel.text = [self scoreStringForInquiry:inquiry];
@@ -118,33 +119,6 @@
 }
 
 #pragma mark - private stuff
-
-- (NSString *)timeSpanStringWithStartDate:(NSTimeInterval)startTime andEndDate:(NSTimeInterval)endTime
-{
-    NSDate *startDate = [NSDate dateWithTimeIntervalSince1970:startTime];
-    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime];
-    
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"dd/MM/yyyy HH:mm"];
-    
-    NSString *startString = [format stringFromDate:startDate];
-    NSString *endString = [format stringFromDate:endDate];
-    
-    int diffInSeconds = endTime - startTime;
-    
-    NSString *spanString;
-    
-    if (diffInSeconds <= 60)
-    {
-        spanString = [NSString stringWithFormat:@"%d Sekunden", diffInSeconds];
-    }
-    else 
-    {
-        spanString = [NSString stringWithFormat:@"%d Minuten", (int)((float)diffInSeconds / 60.0f)];
-    }
-    
-    return [NSString stringWithFormat:@"%@ - %@  (%@)", startString, endString, spanString];
-}
 
 - (NSString *)scoreStringForInquiry:(Inquiry *)inquiry
 {

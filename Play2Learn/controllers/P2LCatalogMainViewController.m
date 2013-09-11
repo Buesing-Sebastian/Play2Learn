@@ -44,10 +44,9 @@ CatalogPlayMode;
         CGFloat offSet = self.view.frame.size.width / 10.0f;
         CGFloat width = (self.view.frame.size.width - offSet * 3 ) / 2.0;
         
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, 300, 20)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 10, self.view.frame.size.width - 120, 20)];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.text = @"";
-        self.titleLabel.center = CGPointMake(self.view.center.x, 20);
         
         [self.view addSubview:self.titleLabel];
         

@@ -25,7 +25,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         //
-        CGRect tableViewFrame = CGRectMake(20, 55, self.view.frame.size.width - 40, self.view.frame.size.height - 40);
+        CGFloat yOffset = 55.0f;
+        
+        CGRect tableViewFrame = CGRectMake(20, yOffset, self.view.frame.size.width - 40, self.view.frame.size.height - yOffset);
         self.tableView = [[UITableView alloc] initWithFrame:tableViewFrame];
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.delegate = self;

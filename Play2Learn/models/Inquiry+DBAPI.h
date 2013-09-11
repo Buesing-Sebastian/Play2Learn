@@ -14,4 +14,6 @@
 
 + (NSArray *)allInquiriesForCatalog:(Catalog *)catalog;
 
+- (NSString *)timeSpanStringUsingFormat:(NSString *)formatString;
+
 @end

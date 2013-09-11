@@ -38,12 +38,13 @@
 		F62A6F6417784D25005ABE4E /* P2LLatexXMLConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = F62A6F6317784D25005ABE4E /* P2LLatexXMLConverter.m */; };
 		F62A6F661778537F005ABE4E /* template.xml in Resources */ = {isa = PBXBuildFile; fileRef = F62A6F651778537F005ABE4E /* template.xml */; };
 		F63D9BC8175B4FA600C06C85 /* P2LQTIAssessmentItemImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = F63D9BC7175B4FA600C06C85 /* P2LQTIAssessmentItemImporter.m */; };
+		F643205F17CE6DC000E34F59 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = F643205E17CE6DBF00E34F59 /* Answer.m */; };
+		F643206317D200E600E34F59 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F643206217D200E600E34F59 /* Reveal.framework */; };
 		F6464E3B178DD18000EBD386 /* felt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F6464E39178DD18000EBD386 /* felt.jpg */; };
 		F6464E3C178DD18000EBD386 /* felt@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F6464E3A178DD18000EBD386 /* felt@2x.jpg */; };
 		F6464E3F178DDC6800EBD386 /* header.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F6464E3D178DDC6800EBD386 /* header.jpg */; };
 		F6464E40178DDC6800EBD386 /* header@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F6464E3E178DDC6800EBD386 /* header@2x.jpg */; };
 		F6464E43178DDFAB00EBD386 /* LilyScriptOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F6464E42178DDFAB00EBD386 /* LilyScriptOne-Regular.ttf */; };
-		F6464E47178F03D400EBD386 /* Fragenkatalog.tex in Resources */ = {isa = PBXBuildFile; fileRef = F6464E46178F03D400EBD386 /* Fragenkatalog.tex */; };
 		F6464E49178F048400EBD386 /* Fragenkatalog in Resources */ = {isa = PBXBuildFile; fileRef = F6464E48178F048400EBD386 /* Fragenkatalog */; };
 		F6639F2B1775BF04006A570D /* P2LMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6639F2A1775BF04006A570D /* P2LMainViewController.m */; };
 		F6639F2E1775BF55006A570D /* P2LCatalogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F6639F2D1775BF55006A570D /* P2LCatalogsViewController.m */; };
@@ -70,7 +71,6 @@
 		F688097917B78FBF0038F5E3 /* Choice.m in Sources */ = {isa = PBXBuildFile; fileRef = F688097817B78FBF0038F5E3 /* Choice.m */; };
 		F688097F17B78FC00038F5E3 /* Conquest.m in Sources */ = {isa = PBXBuildFile; fileRef = F688097E17B78FC00038F5E3 /* Conquest.m */; };
 		F688098817B79C410038F5E3 /* Inquiry.m in Sources */ = {isa = PBXBuildFile; fileRef = F688098717B79C400038F5E3 /* Inquiry.m */; };
-		F688098B17B79F130038F5E3 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = F688098A17B79F120038F5E3 /* Answer.m */; };
 		F688098E17B79F180038F5E3 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = F688098D17B79F160038F5E3 /* Question.m */; };
 		F688099917B7C7D00038F5E3 /* circle_small_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F688098F17B7C7C80038F5E3 /* circle_small_selected.png */; };
 		F688099A17B7C7D00038F5E3 /* circle_small_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F688099017B7C7C80038F5E3 /* circle_small_selected@2x.png */; };
@@ -88,7 +88,6 @@
 		F68809AA17B7CAC30038F5E3 /* back_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F68809A617B7CAC10038F5E3 /* back_down@2x.png */; };
 		F68809AD17B7DE100038F5E3 /* P2LStatisticsQuestionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F68809AC17B7DE100038F5E3 /* P2LStatisticsQuestionView.m */; };
 		F68809B017B7E4790038F5E3 /* P2LStatisticsInquiryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F68809AF17B7E4790038F5E3 /* P2LStatisticsInquiryViewController.m */; };
-		F68809B217B7E6CB0038F5E3 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68809B117B7E6CB0038F5E3 /* Reveal.framework */; };
 		F68809B417B7E7A70038F5E3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F68809B317B7E7A60038F5E3 /* CFNetwork.framework */; };
 		F68809B717B811670038F5E3 /* delimter_top.png in Resources */ = {isa = PBXBuildFile; fileRef = F68809B517B811640038F5E3 /* delimter_top.png */; };
 		F68809B817B811670038F5E3 /* delimter_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F68809B617B811650038F5E3 /* delimter_top@2x.png */; };
@@ -199,6 +198,9 @@
 		F62A6F651778537F005ABE4E /* template.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = template.xml; path = files/template.xml; sourceTree = "<group>"; };
 		F63D9BC6175B4FA600C06C85 /* P2LQTIAssessmentItemImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LQTIAssessmentItemImporter.h; path = helpers/import/P2LQTIAssessmentItemImporter.h; sourceTree = "<group>"; };
 		F63D9BC7175B4FA600C06C85 /* P2LQTIAssessmentItemImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LQTIAssessmentItemImporter.m; path = helpers/import/P2LQTIAssessmentItemImporter.m; sourceTree = "<group>"; };
+		F643205D17CE6DBF00E34F59 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Answer.h; path = models/Answer.h; sourceTree = "<group>"; };
+		F643205E17CE6DBF00E34F59 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Answer.m; path = models/Answer.m; sourceTree = "<group>"; };
+		F643206217D200E600E34F59 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		F6464E39178DD18000EBD386 /* felt.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = felt.jpg; path = images/felt.jpg; sourceTree = "<group>"; };
 		F6464E3A178DD18000EBD386 /* felt@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "felt@2x.jpg"; path = "images/felt@2x.jpg"; sourceTree = "<group>"; };
 		F6464E3D178DDC6800EBD386 /* header.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = header.jpg; path = images/header.jpg; sourceTree = "<group>"; };
@@ -254,8 +256,6 @@
 		F688097E17B78FC00038F5E3 /* Conquest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Conquest.m; path = models/Conquest.m; sourceTree = "<group>"; };
 		F688098617B79C400038F5E3 /* Inquiry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Inquiry.h; path = models/Inquiry.h; sourceTree = "<group>"; };
 		F688098717B79C400038F5E3 /* Inquiry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Inquiry.m; path = models/Inquiry.m; sourceTree = "<group>"; };
-		F688098917B79F110038F5E3 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Answer.h; path = models/Answer.h; sourceTree = "<group>"; };
-		F688098A17B79F120038F5E3 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Answer.m; path = models/Answer.m; sourceTree = "<group>"; };
 		F688098C17B79F140038F5E3 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = models/Question.h; sourceTree = "<group>"; };
 		F688098D17B79F160038F5E3 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = models/Question.m; sourceTree = "<group>"; };
 		F688098F17B7C7C80038F5E3 /* circle_small_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = circle_small_selected.png; path = images/circle_small_selected.png; sourceTree = "<group>"; };
@@ -276,7 +276,6 @@
 		F68809AC17B7DE100038F5E3 /* P2LStatisticsQuestionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LStatisticsQuestionView.m; path = views/P2LStatisticsQuestionView.m; sourceTree = "<group>"; };
 		F68809AE17B7E4780038F5E3 /* P2LStatisticsInquiryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LStatisticsInquiryViewController.h; path = controllers/P2LStatisticsInquiryViewController.h; sourceTree = "<group>"; };
 		F68809AF17B7E4790038F5E3 /* P2LStatisticsInquiryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LStatisticsInquiryViewController.m; path = controllers/P2LStatisticsInquiryViewController.m; sourceTree = "<group>"; };
-		F68809B117B7E6CB0038F5E3 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		F68809B317B7E7A60038F5E3 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F68809B517B811640038F5E3 /* delimter_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delimter_top.png; path = images/delimter_top.png; sourceTree = "<group>"; };
 		F68809B617B811650038F5E3 /* delimter_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "delimter_top@2x.png"; path = "images/delimter_top@2x.png"; sourceTree = "<group>"; };
@@ -383,7 +382,7 @@
 				F6BF1AB3174E5E980040A03E /* UIKit.framework in Frameworks */,
 				F6BF1AB5174E5E980040A03E /* Foundation.framework in Frameworks */,
 				F6BF1AB7174E5E980040A03E /* CoreGraphics.framework in Frameworks */,
-				F68809B217B7E6CB0038F5E3 /* Reveal.framework in Frameworks */,
+				F643206317D200E600E34F59 /* Reveal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,7 +504,7 @@
 		F6BF1AB1174E5E980040A03E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F68809B117B7E6CB0038F5E3 /* Reveal.framework */,
+				F643206217D200E600E34F59 /* Reveal.framework */,
 				F68B2468175FA00E0085C9A2 /* MathJax */,
 				F6BF1BA01758BEE50040A03E /* CoreData.framework */,
 				F6BF1AB2174E5E980040A03E /* UIKit.framework */,
@@ -701,10 +700,10 @@
 			isa = PBXGroup;
 			children = (
 				F6BF1B4A1758BDD20040A03E /* DataModel.xcdatamodeld */,
+				F643205D17CE6DBF00E34F59 /* Answer.h */,
+				F643205E17CE6DBF00E34F59 /* Answer.m */,
 				F688098C17B79F140038F5E3 /* Question.h */,
 				F688098D17B79F160038F5E3 /* Question.m */,
-				F688098917B79F110038F5E3 /* Answer.h */,
-				F688098A17B79F120038F5E3 /* Answer.m */,
 				F688098617B79C400038F5E3 /* Inquiry.h */,
 				F688098717B79C400038F5E3 /* Inquiry.m */,
 				F688097D17B78FC00038F5E3 /* Conquest.h */,
@@ -936,7 +935,6 @@
 				F6464E3F178DDC6800EBD386 /* header.jpg in Resources */,
 				F6464E40178DDC6800EBD386 /* header@2x.jpg in Resources */,
 				F6464E43178DDFAB00EBD386 /* LilyScriptOne-Regular.ttf in Resources */,
-				F6464E47178F03D400EBD386 /* Fragenkatalog.tex in Resources */,
 				F6464E49178F048400EBD386 /* Fragenkatalog in Resources */,
 				F688099917B7C7D00038F5E3 /* circle_small_selected.png in Resources */,
 				F688099A17B7C7D00038F5E3 /* circle_small_selected@2x.png in Resources */,
@@ -1034,11 +1032,11 @@
 				F688097917B78FBF0038F5E3 /* Choice.m in Sources */,
 				F688097F17B78FC00038F5E3 /* Conquest.m in Sources */,
 				F688098817B79C410038F5E3 /* Inquiry.m in Sources */,
-				F688098B17B79F130038F5E3 /* Answer.m in Sources */,
 				F688098E17B79F180038F5E3 /* Question.m in Sources */,
 				F68809AD17B7DE100038F5E3 /* P2LStatisticsQuestionView.m in Sources */,
 				F68809B017B7E4790038F5E3 /* P2LStatisticsInquiryViewController.m in Sources */,
 				F68809BF17B81E1C0038F5E3 /* P2LTableViewCell.m in Sources */,
+				F643205F17CE6DC000E34F59 /* Answer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

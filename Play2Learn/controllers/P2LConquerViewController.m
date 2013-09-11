@@ -77,7 +77,7 @@ typedef enum ConquerGameState {
         self.skipButton.alpha = 1.0f;
         [self.skipButton addTarget:self action:@selector(skipTurn) forControlEvents:UIControlEventTouchUpInside];
         
-        self.headerNoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 20, self.view.frame.size.width - 270, 20)];
+        self.headerNoteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 60, self.view.frame.size.width - 10, 20)];
         self.headerNoteLabel.text = @"Spielfeld wird aufgebaut...";
         //
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height - 60)];
@@ -672,7 +672,7 @@ typedef enum ConquerGameState {
         [NSException raise:NSInvalidArgumentException format:@"Invalid layourNumber!"];
     }
     
-    CGFloat maxLength = (contentArea.width - capitolWidth) / 2.0f;
+    CGFloat maxLength = (contentArea.width - 0) / 2.0f;
     
     float *widths = malloc(sizeof(float) * layerCount);
     

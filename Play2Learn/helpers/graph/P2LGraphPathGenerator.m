@@ -20,7 +20,7 @@
     CGPoint startPoint = CGPointZero;
     
     CGFloat angle = 360.0f / numEdges;
-    CGFloat angleOffset = (angle * 0.9) / 2.0;
+    CGFloat angleOffset = angle * 0.2;
     
     for (CGFloat currentAngle = 0.0f; currentAngle < 360.f; currentAngle += angle)
     {

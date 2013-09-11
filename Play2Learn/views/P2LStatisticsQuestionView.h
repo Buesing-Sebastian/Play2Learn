@@ -17,6 +17,19 @@
 @property (nonatomic, assign) int row;
 @property (nonatomic, strong) UILabel *questionNumberLabel;
 @property (nonatomic, strong) Question *question;
-@property (nonatomic, strong) NSArray *choices;
+@property (nonatomic, strong) NSArray *answers;
+@property (nonatomic, strong) UILabel *percentScoreLabel;
+
+@property (nonatomic, strong) UILabel *answerChoiceA;
+@property (nonatomic, strong) UILabel *answerCorrectA;
+
+@property (nonatomic, strong) UILabel *answerChoiceB;
+@property (nonatomic, strong) UILabel *answerCorrectB;
+
+@property (nonatomic, strong) UILabel *answerChoiceC;
+@property (nonatomic, strong) UILabel *answerCorrectC;
+
+@property (nonatomic, strong) UILabel *answerChoiceD;
+@property (nonatomic, strong) UILabel *answerCorrectD;
 
 @end

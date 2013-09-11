@@ -52,13 +52,16 @@
 {
     _latexCode = latexCode;
     
-    NSString *html = [self.htmlLayout stringByReplacingOccurrencesOfString:@"{{LAXTEX_PLACEHOLDER}}" withString:self.latexCode];
-    html = [html stringByReplacingOccurrencesOfString:@"{{FONT_SIZE_PLACEHOLDER}}" withString:@"1.5"];
-    
-    NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/MathJax"];
-    NSURL *baseURL = [NSURL fileURLWithPath:path];
-    
-    [self.webView loadHTMLString:html baseURL:baseURL];
+    if (latexCode)
+    {
+        NSString *html = [self.htmlLayout stringByReplacingOccurrencesOfString:@"{{LAXTEX_PLACEHOLDER}}" withString:self.latexCode];
+        html = [html stringByReplacingOccurrencesOfString:@"{{FONT_SIZE_PLACEHOLDER}}" withString:@"1.5"];
+        
+        NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingString:@"/MathJax"];
+        NSURL *baseURL = [NSURL fileURLWithPath:path];
+        
+        [self.webView loadHTMLString:html baseURL:baseURL];
+    }
     
     //[self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"utf-8" baseURL:url];
 }

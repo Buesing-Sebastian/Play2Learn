@@ -12,4 +12,6 @@
 
 - (id)initWithInquiry:(Inquiry *)inquiry question:(Question *)question andAnswers:(Answer *)answer;
 
+- (void)save;
+
 @end

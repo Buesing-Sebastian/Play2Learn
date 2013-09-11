@@ -13,6 +13,7 @@
 #import "Choice+DBChoice.h"
 #import "Lesson+DBAPI.h"
 #import "Inquiry+DBAPI.h"
+#import "Answer+DBAPI.h"
 #import "P2LModelManager.h"
 
 @interface P2LInquiryViewController ()
@@ -96,30 +97,35 @@
         BOOL checked = [self.currentView checkedAnswerAtIndex:i];
         
         Answer *answer = [currentAnswers objectAtIndex:i];
+        // save choice
+        Choice *choice = [[Choice alloc] initWithInquiry:self.inquiry question:currentQuestion andAnswers:answer];
+        choice.value = checked;
         
         if (checked && [[currentQuestion.correctAnswers allObjects] containsObject:answer])
         {
             [self.currentView setNote:@"Richtig!" forAnswerAtIndex:i];
             self.correctAnswers++;
+            choice.correct = YES;
         }
         else if (!checked && ![[currentQuestion.correctAnswers allObjects] containsObject:answer])
         {
             [self.currentView setNote:@"Richtig!" forAnswerAtIndex:i];
             self.correctAnswers++;
+            choice.correct = YES;
         }
         else
         {
             [self.currentView setNote:@"Falsch!" forAnswerAtIndex:i];
             self.wrongAnsers++;
+            choice.correct = NO;
         }
-        // save choice
-        Choice *choice = [[Choice alloc] initWithInquiry:self.inquiry question:currentQuestion andAnswers:answer];
-        choice.value = checked;
+        [choice save];
         
         NSError *error;
         
         [[P2LModelManager currentContext] save:&error];
         
+        [answer addChoicesObject:choice];
         [self.inquiry addChoicesObject:choice];
         [self.inquiry save];
         [currentChoices addObject:choice];

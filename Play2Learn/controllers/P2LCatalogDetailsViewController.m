@@ -57,7 +57,7 @@
         self.noteLabel.backgroundColor = [UIColor clearColor];
         
         self.saveButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        self.saveButton.frame = CGRectMake(10, 310, self.view.frame.size.width-20, 44);
+        self.saveButton.frame = CGRectMake(self.view.frame.size.width - 110, 10, 100, 44);
         [self.saveButton setTitle:@"Speichern!" forState:UIControlStateNormal];
         [self.saveButton addTarget:self action:@selector(saveButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         

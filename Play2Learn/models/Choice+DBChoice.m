@@ -16,7 +16,24 @@
     NSManagedObjectContext *context = [P2LModelManager currentContext];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Choice" inManagedObjectContext:context];
     
-    return [super initWithEntity:entityDescription insertIntoManagedObjectContext:context];
+    self = [super initWithEntity:entityDescription insertIntoManagedObjectContext:context];
+    
+    if (self)
+    {
+        self.inquiry = inquiry;
+        self.question = question;
+        self.answer = answer;
+    }
+    
+    return self;
+}
+
+- (void)save
+{
+    NSManagedObjectContext *context = [P2LModelManager currentContext];
+    
+    NSError *error;
+    [context save:&error];
 }
 
 @end
