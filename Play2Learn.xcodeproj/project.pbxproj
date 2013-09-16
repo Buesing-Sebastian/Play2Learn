@@ -123,12 +123,11 @@
 		F6BF1ADC174E5E990040A03E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BF1AB4174E5E980040A03E /* Foundation.framework */; };
 		F6BF1AE4174E5E990040A03E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F6BF1AE2174E5E990040A03E /* InfoPlist.strings */; };
 		F6BF1AE7174E5E990040A03E /* Play2LearnTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1AE6174E5E990040A03E /* Play2LearnTests.m */; };
-		F6BF1AFF174E60CF0040A03E /* P2LGraphEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1AFC174E60CF0040A03E /* P2LGraphEdge.m */; };
+		F6BF1AFF174E60CF0040A03E /* P2LPathEdge.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1AFC174E60CF0040A03E /* P2LPathEdge.m */; };
 		F6BF1B00174E60CF0040A03E /* P2LGraphPath.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1AFD174E60CF0040A03E /* P2LGraphPath.m */; };
 		F6BF1B03174FEF980040A03E /* P2LPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1B02174FEF980040A03E /* P2LPathView.m */; };
 		F6BF1B07174FF4B20040A03E /* P2LGraphPathGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1B06174FF4B20040A03E /* P2LGraphPathGenerator.m */; };
 		F6BF1B0C1750C7020040A03E /* P2LGraphPathGeneratorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1B0B1750C7020040A03E /* P2LGraphPathGeneratorTests.m */; };
-		F6BF1B46175630AF0040A03E /* P2LLaTex2XmlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1B45175630AF0040A03E /* P2LLaTex2XmlTests.m */; };
 		F6BF1B4C1758BDD20040A03E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1B4A1758BDD20040A03E /* DataModel.xcdatamodeld */; };
 		F6BF1BA11758BEE50040A03E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6BF1BA01758BEE50040A03E /* CoreData.framework */; };
 		F6BF1BB11758E3E80040A03E /* Lesson+DBAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1BB01758E3E80040A03E /* Lesson+DBAPI.m */; };
@@ -325,17 +324,15 @@
 		F6BF1AE5174E5E990040A03E /* Play2LearnTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Play2LearnTests.h; sourceTree = "<group>"; };
 		F6BF1AE6174E5E990040A03E /* Play2LearnTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Play2LearnTests.m; sourceTree = "<group>"; };
 		F6BF1AFB174E60CF0040A03E /* P2LGraphPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LGraphPath.h; path = models/graph/P2LGraphPath.h; sourceTree = "<group>"; };
-		F6BF1AFC174E60CF0040A03E /* P2LGraphEdge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LGraphEdge.m; path = models/graph/P2LGraphEdge.m; sourceTree = "<group>"; };
+		F6BF1AFC174E60CF0040A03E /* P2LPathEdge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LPathEdge.m; path = models/graph/P2LPathEdge.m; sourceTree = "<group>"; };
 		F6BF1AFD174E60CF0040A03E /* P2LGraphPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LGraphPath.m; path = models/graph/P2LGraphPath.m; sourceTree = "<group>"; };
-		F6BF1AFE174E60CF0040A03E /* P2LGraphEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LGraphEdge.h; path = models/graph/P2LGraphEdge.h; sourceTree = "<group>"; };
+		F6BF1AFE174E60CF0040A03E /* P2LPathEdge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LPathEdge.h; path = models/graph/P2LPathEdge.h; sourceTree = "<group>"; };
 		F6BF1B01174FEF980040A03E /* P2LPathView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LPathView.h; path = views/P2LPathView.h; sourceTree = "<group>"; };
 		F6BF1B02174FEF980040A03E /* P2LPathView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LPathView.m; path = views/P2LPathView.m; sourceTree = "<group>"; };
 		F6BF1B05174FF4B20040A03E /* P2LGraphPathGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LGraphPathGenerator.h; path = helpers/graph/P2LGraphPathGenerator.h; sourceTree = "<group>"; };
 		F6BF1B06174FF4B20040A03E /* P2LGraphPathGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LGraphPathGenerator.m; path = helpers/graph/P2LGraphPathGenerator.m; sourceTree = "<group>"; };
 		F6BF1B0A1750C7020040A03E /* P2LGraphPathGeneratorTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LGraphPathGeneratorTests.h; path = helpers/graph/P2LGraphPathGeneratorTests.h; sourceTree = "<group>"; };
 		F6BF1B0B1750C7020040A03E /* P2LGraphPathGeneratorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LGraphPathGeneratorTests.m; path = helpers/graph/P2LGraphPathGeneratorTests.m; sourceTree = "<group>"; };
-		F6BF1B44175630AF0040A03E /* P2LLaTex2XmlTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LLaTex2XmlTests.h; path = helpers/latex2mathml/P2LLaTex2XmlTests.h; sourceTree = "<group>"; };
-		F6BF1B45175630AF0040A03E /* P2LLaTex2XmlTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LLaTex2XmlTests.m; path = helpers/latex2mathml/P2LLaTex2XmlTests.m; sourceTree = "<group>"; };
 		F6BF1B4B1758BDD20040A03E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		F6BF1BA01758BEE50040A03E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		F6BF1BAF1758E3E70040A03E /* Lesson+DBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Lesson+DBAPI.h"; path = "models/Lesson+DBAPI.h"; sourceTree = "<group>"; };
@@ -654,8 +651,8 @@
 			children = (
 				F6BF1AFB174E60CF0040A03E /* P2LGraphPath.h */,
 				F6BF1AFD174E60CF0040A03E /* P2LGraphPath.m */,
-				F6BF1AFE174E60CF0040A03E /* P2LGraphEdge.h */,
-				F6BF1AFC174E60CF0040A03E /* P2LGraphEdge.m */,
+				F6BF1AFE174E60CF0040A03E /* P2LPathEdge.h */,
+				F6BF1AFC174E60CF0040A03E /* P2LPathEdge.m */,
 			);
 			name = graph;
 			sourceTree = "<group>";
@@ -672,7 +669,6 @@
 		F6BF1B081750C6C10040A03E /* helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F6BF1B43175630740040A03E /* latex2mathml */,
 				F6BF1B091750C6CB0040A03E /* graph */,
 			);
 			name = helpers;
@@ -685,15 +681,6 @@
 				F6BF1B0B1750C7020040A03E /* P2LGraphPathGeneratorTests.m */,
 			);
 			name = graph;
-			sourceTree = "<group>";
-		};
-		F6BF1B43175630740040A03E /* latex2mathml */ = {
-			isa = PBXGroup;
-			children = (
-				F6BF1B44175630AF0040A03E /* P2LLaTex2XmlTests.h */,
-				F6BF1B45175630AF0040A03E /* P2LLaTex2XmlTests.m */,
-			);
-			name = latex2mathml;
 			sourceTree = "<group>";
 		};
 		F6BF1BAE1758E2950040A03E /* database */ = {
@@ -991,7 +978,7 @@
 				F6BF1ABF174E5E980040A03E /* main.m in Sources */,
 				F6BF1AC3174E5E980040A03E /* P2LAppDelegate.m in Sources */,
 				F6BF1AD2174E5E990040A03E /* P2LViewController.m in Sources */,
-				F6BF1AFF174E60CF0040A03E /* P2LGraphEdge.m in Sources */,
+				F6BF1AFF174E60CF0040A03E /* P2LPathEdge.m in Sources */,
 				F6BF1B00174E60CF0040A03E /* P2LGraphPath.m in Sources */,
 				F6BF1B03174FEF980040A03E /* P2LPathView.m in Sources */,
 				F6BF1B07174FF4B20040A03E /* P2LGraphPathGenerator.m in Sources */,
@@ -1046,7 +1033,6 @@
 			files = (
 				F6BF1AE7174E5E990040A03E /* Play2LearnTests.m in Sources */,
 				F6BF1B0C1750C7020040A03E /* P2LGraphPathGeneratorTests.m in Sources */,
-				F6BF1B46175630AF0040A03E /* P2LLaTex2XmlTests.m in Sources */,
 				F6F80129176CAA0300B1B160 /* P2LGraphPathTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

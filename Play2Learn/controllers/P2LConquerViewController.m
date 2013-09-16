@@ -22,7 +22,8 @@ typedef enum ConquerGameState {
     ConquerGameStateInitialized,
     ConquerGameStateUserTurnAttack,
     ConquerGameStateUserTurnMove,
-    ConquerGameStateEnemyTurn
+    ConquerGameStateEnemyTurn,
+    ConquerGameStateFinished
 
 } ConquerGameState;
 
@@ -221,6 +222,7 @@ typedef enum ConquerGameState {
     switch (self.currentGameState)
     {
         case ConquerGameStateUninitialized:
+        case ConquerGameStateFinished:
         {
             return;
         }
@@ -384,7 +386,7 @@ typedef enum ConquerGameState {
     }
     P2LConquerChallengeViewController *controller = [[P2LConquerChallengeViewController alloc] initWithFrame:self.view.frame];
     
-    controller.numOwnForces = userArea ? userArea.forcesCount : 3;
+    controller.numOwnForces = userArea ? userArea.forcesCount-1 : 3;
     controller.numEnemyForces = self.attackedView.forcesCount;
     controller.mainViewController = self;
     
@@ -399,6 +401,8 @@ typedef enum ConquerGameState {
         if ([[self.layers objectAtIndex:0] objectAtIndex:0] == self.attackedView)
         {
             [self userWinAnimation];
+            
+            self.currentGameState = ConquerGameStateFinished;
             
             return;
         }

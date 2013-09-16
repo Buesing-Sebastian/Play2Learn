@@ -13,7 +13,7 @@
 
 - (void)testBoundsSize
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
     
     P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
     
@@ -29,7 +29,7 @@
 
 - (void)testContainsPoint
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
     
     P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
     
@@ -47,7 +47,7 @@
 
 - (void)testIsInsidePoint
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(60, 10)];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(60, 10)];
     
     P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
     
@@ -73,7 +73,7 @@
 
 - (void)testGraphByJoiningWithAdjacentGraph
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
     
     P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
     
@@ -82,7 +82,7 @@
     [path addEdgeToEndPoint:CGPointMake(30, 190)];
     [path closePath];
     
-    edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(195, 20) andEnd:CGPointMake(300, 30)];
+    edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(195, 20) andEnd:CGPointMake(300, 30)];
     
     P2LGraphPath *newPath = [[P2LGraphPath alloc] initWithEdge:edge];
     
@@ -105,7 +105,7 @@
 
 - (void)testClosestPointToPoint
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
     
     P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
     
@@ -125,7 +125,7 @@
 
 - (void)testPathFromPointAtoPointBclosestToPointC
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(200, 600) andEnd:CGPointMake(300, 300)];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(200, 600) andEnd:CGPointMake(300, 300)];
     
     P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
     

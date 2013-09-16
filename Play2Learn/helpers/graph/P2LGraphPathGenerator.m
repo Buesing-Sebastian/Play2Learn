@@ -50,7 +50,7 @@
             }
             else
             {
-                P2LGraphEdge *startEdge = [[P2LGraphEdge alloc] initWithStart:startPoint andEnd:position];
+                P2LPathEdge *startEdge = [[P2LPathEdge alloc] initWithStart:startPoint andEnd:position];
                 generatedPath = [[P2LGraphPath alloc] initWithEdge:startEdge];
             }
         }
@@ -109,7 +109,7 @@
             }
             else
             {
-                P2LGraphEdge *startEdge = [[P2LGraphEdge alloc] initWithStart:startPoint andEnd:position];
+                P2LPathEdge *startEdge = [[P2LPathEdge alloc] initWithStart:startPoint andEnd:position];
                 generatedPath = [[P2LGraphPath alloc] initWithEdge:startEdge];
             }
         }
@@ -117,10 +117,6 @@
         {
             [generatedPath addEdgeToEndPoint:position];
         }
-    }
-    if ([generatedPath containsPoint:CGPointMake(0, 0)])
-    {
-        int debug = 0;
     }
     
     return generatedPath;
@@ -131,7 +127,6 @@
     NSMutableArray *generatedPaths = [NSMutableArray new];
     
     CGPoint midPoint = [innerPath midPoint];
-    CGRect bounds = CGRectMake(0, 0, maxLength * 2.0f, maxLength * 2.0f);
     /*
      * Algorithm:
      *
@@ -203,15 +198,11 @@
             // now construct the whole path
             [arcPath appendPath:adjacentPath];
             // check if the border is valid
-            P2LGraphEdge *borderEdge = [[borderPath edges] objectAtIndex:0];
+            P2LPathEdge *borderEdge = [[borderPath edges] objectAtIndex:0];
             
             if (![arcPath containsEdge:borderEdge])
             {
                 [arcPath appendPath:borderPath];
-            }
-            else
-            {
-                // TODO: wieso passiert es?
             }
         }
         else if (previousPath && i == numPaths-1) // last path gets special treatmeant...
@@ -261,7 +252,7 @@
             }
             [arcPath appendPath:adjacentPath];
             // check if the border is valid
-            P2LGraphEdge *borderEdge = [[borderPath edges] objectAtIndex:0];
+            P2LPathEdge *borderEdge = [[borderPath edges] objectAtIndex:0];
             
             if (![arcPath containsEdge:borderEdge])
             {
@@ -280,19 +271,8 @@
             CGPoint arcOuterMidPoint = ((NSValue *)[[arcPath allPoints] objectAtIndex:midIndex]).CGPointValue;
             
             P2LGraphPath *adjacentPath = [innerPath pathFromPointA:nextPoint toPointB:joinEndPoint closestToPointC:arcOuterMidPoint];
-            
-            if (adjacentPath == nil)
-            {
-                int debug = 0;
-            }
             // connect adjacentPath
             [arcPath appendPath:adjacentPath];
-            
-            if (![innerPath isAdjacentToPath:arcPath])
-            {
-                //
-                P2LGraphPath *adjacentPath = [innerPath pathFromPointA:nextPoint toPointB:joinEndPoint closestToPointC:arcOuterMidPoint];
-            }
         }
         // and close path
         [arcPath closePath];

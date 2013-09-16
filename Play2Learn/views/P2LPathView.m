@@ -81,7 +81,7 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
     {
         CGContextMoveToPoint(context, [_path startPoint].x - xOffset, height - ([_path startPoint].y - yOffset));
         
-        for (P2LGraphEdge *edge in [_path edges])
+        for (P2LPathEdge *edge in [_path edges])
         {
             CGContextAddLineToPoint(context, [edge endPoint].x - xOffset, height - ([edge endPoint].y - yOffset));
         }
@@ -91,7 +91,7 @@ void drawStroke(CGContextRef context, CGFloat strokeWidth, CGPoint startPoint, C
     CGContextSetFillColorWithColor(context, selectedColor.CGColor);
     CGContextFillPath(context);
     
-    for (P2LGraphEdge *edge in [_path edges])
+    for (P2LPathEdge *edge in [_path edges])
     {
         CGPoint startPoint = [edge startPoint];
         CGPoint endPoint = [edge endPoint];

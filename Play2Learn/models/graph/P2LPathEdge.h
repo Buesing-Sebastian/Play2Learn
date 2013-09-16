@@ -1,5 +1,5 @@
 //
-//  P2LGraphEdge.h
+//  P2LPathEdge.h
 //  Play2Learn
 //
 //  Created by Sebastian Büsing on 23.05.13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface P2LGraphEdge : NSObject
+@interface P2LPathEdge : NSObject
 
 @property (nonatomic, assign, readonly) CGPoint startPoint;
 @property (nonatomic, assign, readonly) CGPoint endPoint;

@@ -2,7 +2,7 @@
 //  Answer.h
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 11.08.13.
+//  Created by Sebastian Büsing on 28.08.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
@@ -15,8 +15,16 @@
 
 @property (nonatomic) int64_t primaryKey;
 @property (nonatomic, retain) NSString * text;
-@property (nonatomic, retain) Question *question;
-@property (nonatomic, retain) Choice *choices;
+@property (nonatomic, retain) NSSet *choices;
 @property (nonatomic, retain) Question *correctAnswerToQuestion;
+@property (nonatomic, retain) Question *question;
+@end
+
+@interface Answer (CoreDataGeneratedAccessors)
+
+- (void)addChoicesObject:(Choice *)value;
+- (void)removeChoicesObject:(Choice *)value;
+- (void)addChoices:(NSSet *)values;
+- (void)removeChoices:(NSSet *)values;
 
 @end

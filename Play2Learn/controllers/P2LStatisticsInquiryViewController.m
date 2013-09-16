@@ -77,7 +77,6 @@
 - (void)setupViewsForiPhone
 {
     CGFloat width = self.view.frame.size.width;
-    CGFloat height = self.view.frame.size.height;
     CGFloat offset = 60.0f;
     
     UIImageView *cellIcon = [[UIImageView alloc] initWithFrame:CGRectMake(width - 53, 5, 48, 48)];

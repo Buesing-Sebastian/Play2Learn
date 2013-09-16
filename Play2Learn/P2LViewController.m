@@ -64,7 +64,7 @@
 //    self.numVertices = [[UILabel alloc] initWithFrame:CGRectMake(60, 5, 40, 40)];
 //    self.numVertices.text = @"6";
 //    
-//    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
+//    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:CGPointMake(10, 10) andEnd:CGPointMake(195, 20)];
 //    
 //    P2LGraphPath *path = [[P2LGraphPath alloc] initWithEdge:edge];
 //    

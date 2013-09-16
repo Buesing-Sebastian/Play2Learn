@@ -1,14 +1,14 @@
 //
-//  P2LGraphEdge.m
+//  P2LPathEdge.m
 //  Play2Learn
 //
 //  Created by Sebastian Büsing on 23.05.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
-#import "P2LGraphEdge.h"
+#import "P2LPathEdge.h"
 
-@implementation P2LGraphEdge
+@implementation P2LPathEdge
 
 - (id)initWithStart:(CGPoint)startPoint andEnd:(CGPoint)endPoint
 {

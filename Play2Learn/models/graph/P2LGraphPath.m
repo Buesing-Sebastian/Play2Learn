@@ -10,8 +10,11 @@
 
 @interface P2LGraphPath ()
 
+// internal array of P2LPathEdges
 @property (nonatomic, strong) NSMutableArray *edges;
+// internal array of points of thoses edges
 @property (nonatomic, strong) NSMutableArray *allPoints;
+// counter used to prevent endless recursions
 @property (nonatomic, assign) int failSafeCounter;
 
 @end
@@ -20,7 +23,7 @@
 
 #pragma mark - initializers
 
-- (id)initWithEdge:(P2LGraphEdge *)startEdge
+- (id)initWithEdge:(P2LPathEdge *)startEdge
 {
     self = [super init];
     if (self)
@@ -33,7 +36,7 @@
     return self;
     
 }
-// edges will be connected as ordered in array
+
 - (id)initWithEdges:(NSArray *)edges
 {
     self = [super init];
@@ -43,7 +46,7 @@
         _edges = [NSMutableArray new];
         _allPoints = [NSMutableArray new];
         
-        for (P2LGraphEdge *edge in edges)
+        for (P2LPathEdge *edge in edges)
         {
             [self addEdge:edge];
         }
@@ -61,6 +64,7 @@
         _edges = [NSMutableArray new];
         _allPoints = [points mutableCopy];
         
+        // fill the edges array from the points array
         [self redoEdgesUsingPoints];
     }
     return self;
@@ -78,14 +82,14 @@
     return [[self endEdge] endPoint];
 }
 
-- (P2LGraphEdge *)startEdge
+- (P2LPathEdge *)startEdge
 {
-    return (P2LGraphEdge *)[_edges objectAtIndex:0];
+    return (P2LPathEdge *)[_edges objectAtIndex:0];
 }
 
-- (P2LGraphEdge *)endEdge
+- (P2LPathEdge *)endEdge
 {
-    return (P2LGraphEdge *)[_edges objectAtIndex:MAX(0, [_edges count] - 1)];
+    return (P2LPathEdge *)[_edges objectAtIndex:MAX(0, [_edges count] - 1)];
 }
 
 - (NSArray *)edges
@@ -105,10 +109,10 @@
     
     for (int i = 0; i < [_edges count]; i++)
     {
-        P2LGraphEdge *edge = [_edges objectAtIndex:i];
+        P2LPathEdge *edge = [_edges objectAtIndex:i];
         [vertices addObject:[NSValue valueWithCGPoint:edge.startPoint]];
     }
-    P2LGraphEdge *edge = [_edges objectAtIndex:MAX(0, [_edges count]-1)];
+    P2LPathEdge *edge = [_edges objectAtIndex:MAX(0, [_edges count]-1)];
     [vertices addObject:[NSValue valueWithCGPoint:edge.endPoint]];
     
     _allPoints = vertices;
@@ -250,7 +254,7 @@
 
 #pragma mark - manipulators
 
-- (void)addEdge:(P2LGraphEdge *)newEdge
+- (void)addEdge:(P2LPathEdge *)newEdge
 {
     if ([_edges count] && !CGPointEqualToPoint([self endPoint], [newEdge startPoint]))
     {
@@ -258,10 +262,6 @@
     }
     else
     {
-        if ([self containsPoint:[newEdge endPoint]] && !CGPointEqualToPoint([self startPoint], [newEdge endPoint]))
-        {
-            int debug = 0;
-        }
         [_edges addObject:newEdge];
         
         if (![self isClosed])
@@ -281,7 +281,7 @@
 
 - (void)addEdgeToEndPoint:(CGPoint)endPoint
 {
-    P2LGraphEdge *edge = [[P2LGraphEdge alloc] initWithStart:[self endPoint] andEnd:endPoint];
+    P2LPathEdge *edge = [[P2LPathEdge alloc] initWithStart:[self endPoint] andEnd:endPoint];
     
     [self addEdge:edge];
 }
@@ -319,9 +319,7 @@
         //[newEdges removeObjectAtIndex:0];
     }
     
-    NSArray *before = [[self edges] copy];
-    
-    for (P2LGraphEdge *edge in newEdges)
+    for (P2LPathEdge *edge in newEdges)
     {
         if ([self containsPoint:[edge endPoint]])
         {
@@ -394,15 +392,15 @@
     return NO;
 }
 
-- (BOOL)containsEdge:(P2LGraphEdge *)someEdge
+- (BOOL)containsEdge:(P2LPathEdge *)someEdge
 {
     if (someEdge == nil)
     {
         return NO;
     }
-    P2LGraphEdge *reversedEdge = [[P2LGraphEdge alloc] initWithStart:[someEdge endPoint] andEnd:[someEdge startPoint]];
+    P2LPathEdge *reversedEdge = [[P2LPathEdge alloc] initWithStart:[someEdge endPoint] andEnd:[someEdge startPoint]];
     
-    for (P2LGraphEdge *edge in _edges)
+    for (P2LPathEdge *edge in _edges)
     {
         if (CGPointEqualToPoint(edge.startPoint, someEdge.startPoint) &&
             CGPointEqualToPoint(edge.endPoint, someEdge.endPoint))
@@ -431,7 +429,7 @@
     int edgesCrossed = 0;
     
     // count how many edges we cross
-    for (P2LGraphEdge *edge in _edges)
+    for (P2LPathEdge *edge in _edges)
     {
         BOOL startAbove = [self isPoint:[self pointByConvertingPoint:[edge startPoint] toOrigion:somePoint] aboveGradientWithSlope:slope];
         BOOL endAbove = [self isPoint:[self pointByConvertingPoint:[edge endPoint] toOrigion:somePoint] aboveGradientWithSlope:slope];
@@ -495,34 +493,17 @@
     return NO;
 }
 
-- (BOOL)edge:(P2LGraphEdge *)edgeA isConnectedToEdge:(P2LGraphEdge *)edgeB
-{
-    return (CGPointEqualToPoint([edgeA endPoint], [edgeB startPoint])
-            || CGPointEqualToPoint([edgeB startPoint], [edgeA endPoint]));
-}
-
-
-- (CGFloat)shortestDistanceToPoint:(CGPoint)somePoint
-{
-    CGPoint closestpoint = [self pointClosestToPoint:somePoint];
-    
-    // calculate euclidean distance
-    CGFloat thisDistance = sqrtf(powf((somePoint.x - closestpoint.x), 2.0f) + powf((somePoint.y - closestpoint.y), 2.0f));
-    
-    return thisDistance;
-}
-
-- (NSUInteger)indexOfEdge:(P2LGraphEdge *)someEdge ignoringDirection:(BOOL)ignoreDirection
+- (NSUInteger)indexOfEdge:(P2LPathEdge *)someEdge ignoringDirection:(BOOL)ignoreDirection
 {
     if (someEdge == nil)
     {
         [NSException raise:NSInvalidArgumentException format:@"edge not inside path"];
     }
-    P2LGraphEdge *reversedEdge = [[P2LGraphEdge alloc] initWithStart:[someEdge endPoint] andEnd:[someEdge startPoint]];
+    P2LPathEdge *reversedEdge = [[P2LPathEdge alloc] initWithStart:[someEdge endPoint] andEnd:[someEdge startPoint]];
     
     for (int i = 0; i < _edges.count; i++)
     {
-        P2LGraphEdge *edge  = [_edges objectAtIndex:i];
+        P2LPathEdge *edge  = [_edges objectAtIndex:i];
         
         if (CGPointEqualToPoint(edge.startPoint, someEdge.startPoint) &&
             CGPointEqualToPoint(edge.endPoint, someEdge.endPoint))
@@ -728,7 +709,7 @@
     if (CGPointEqualToPoint(pointA, pointB))
     {
         [NSException raise:NSInvalidArgumentException format:@"cannot create path with start and end being the same point"];
-        //return [[P2LGraphPath alloc] initWithEdge:[[P2LGraphEdge alloc] initWithStart:pointA andEnd:pointB]];
+        //return [[P2LGraphPath alloc] initWithEdge:[[P2LPathEdge alloc] initWithStart:pointA andEnd:pointB]];
     }
     
     P2LGraphPath *leftPath;
@@ -751,7 +732,7 @@
             }
             else
             {
-                leftPath = [[P2LGraphPath alloc] initWithEdge:[[P2LGraphEdge alloc] initWithStart:startPoint andEnd:currentPoint]];
+                leftPath = [[P2LGraphPath alloc] initWithEdge:[[P2LPathEdge alloc] initWithStart:startPoint andEnd:currentPoint]];
             }
         }
         currentPoint = [self pointAfterPoint:currentPoint];
@@ -760,7 +741,7 @@
     if (leftPath == nil && !CGPointEqualToPoint(startPoint, CGPointMake(MAXFLOAT, 0.0f)) &&
         CGPointEqualToPoint(currentPoint, pointB))
     {
-        return leftPath = [[P2LGraphPath alloc] initWithEdge:[[P2LGraphEdge alloc] initWithStart:startPoint andEnd:currentPoint]];
+        return leftPath = [[P2LGraphPath alloc] initWithEdge:[[P2LPathEdge alloc] initWithStart:startPoint andEnd:currentPoint]];
     }
     
     [leftPath addEdgeToEndPoint:currentPoint];
@@ -770,7 +751,6 @@
 
 - (P2LGraphPath *)shortestPathFrom:(CGPoint)somePoint toPointInsidePath:(P2LGraphPath *)adjacentPath
 {
-    // TODO: check if adjacentPath is really adjacent
     if (![self isAdjacentToPath:adjacentPath])
     {
         [NSException raise:NSInvalidArgumentException format:@"path is not adjacent!"];
@@ -781,10 +761,10 @@
         [NSException raise:NSInvalidArgumentException format:@"path does not contain somePoint"];
     }
     
-    P2LGraphEdge *leftEdge = [[P2LGraphEdge alloc] initWithStart:somePoint andEnd:[self pointBeforePoint:somePoint]];
+    P2LPathEdge *leftEdge = [[P2LPathEdge alloc] initWithStart:somePoint andEnd:[self pointBeforePoint:somePoint]];
     P2LGraphPath *leftPath = [[P2LGraphPath alloc] initWithEdge:leftEdge];
     
-    P2LGraphEdge *rightEdge = [[P2LGraphEdge alloc] initWithStart:somePoint andEnd:[self pointAfterPoint:somePoint]];
+    P2LPathEdge *rightEdge = [[P2LPathEdge alloc] initWithStart:somePoint andEnd:[self pointAfterPoint:somePoint]];
     P2LGraphPath *rightPath = [[P2LGraphPath alloc] initWithEdge:rightEdge];
     
     self.failSafeCounter = 0;
@@ -808,12 +788,15 @@
 
 - (P2LGraphPath *)graphByJoiningWithAdjacentGraph:(P2LGraphPath *)secondGraph
 {
+    // Check if the path is adjacent, because only adjancent paths can be joined
     if (![self isAdjacentToPath:secondGraph])
     {
         [NSException raise:NSInvalidArgumentException format:@"graph not adjacent!"];
     }
+    // This stores the newly created graph
     P2LGraphPath *newPath;
     
+    // both graphs
     if (![self isClosed] || ![secondGraph isClosed])
     {
         [NSException raise:NSInvalidArgumentException format:@"can only join closed graphs!"];
@@ -825,13 +808,13 @@
     NSMutableIndexSet *mySet = [[NSMutableIndexSet alloc] init];
     NSMutableIndexSet *hisSet = [[NSMutableIndexSet alloc] init];
     
-    // New approach. We join by delete same shared edges in both
+    // New approach. We join by deleting mutually shared edges in both
     // graphs and the we connect them at the points they share,
     // which should leave one connected outer graph.
     
     for (int i = 0; i < [self edges].count; i++)
     {
-        P2LGraphEdge *myEdge = [[self edges] objectAtIndex:i];
+        P2LPathEdge *myEdge = [[self edges] objectAtIndex:i];
         // remember that containsEgdes does not care about
         // the direction of the edge, which is exactly what
         // is needed here.
@@ -843,10 +826,10 @@
         }
     }
     
-    // make sure the edges are point in different directions
+    // make sure the edges are pointing in different directions
     // so dont have to deal with both cases while joining.
-    P2LGraphEdge *myTest = [myEdges objectAtIndex:[mySet firstIndex]];
-    P2LGraphEdge *hisTest = [hisEgdes objectAtIndex:[hisSet firstIndex]];
+    P2LPathEdge *myTest = [myEdges objectAtIndex:[mySet firstIndex]];
+    P2LPathEdge *hisTest = [hisEgdes objectAtIndex:[hisSet firstIndex]];
     
     if (CGPointEqualToPoint(myTest.startPoint, hisTest.startPoint))
     {
@@ -878,13 +861,13 @@
     while (newEdges.count != (myEdges.count + hisEgdes.count))
     {
         // add the from the activeEdges the edge at the currentIndex.
-        P2LGraphEdge *currentEdge = [activeEdges objectAtIndex:currentIndex];
+        P2LPathEdge *currentEdge = [activeEdges objectAtIndex:currentIndex];
         [newEdges addObject:currentEdge];
         
-        // now look at how to go forth. Check the if the next edge
+        // now look at how to go forth. Check the if the current edge
         // is connected to the next one.
         int nextIndex = currentIndex == activeEdges.count-1 ? 0 : currentIndex+1;
-        P2LGraphEdge *nextEdge = [activeEdges objectAtIndex:nextIndex];
+        P2LPathEdge *nextEdge = [activeEdges objectAtIndex:nextIndex];
         
         if (CGPointEqualToPoint([nextEdge startPoint], [currentEdge endPoint]))
         {
@@ -899,7 +882,7 @@
             NSMutableArray *temp;
             for (int j = 0; j < inactiveEdges.count; j++)
             {
-                P2LGraphEdge *someEdge = [inactiveEdges objectAtIndex:j];
+                P2LPathEdge *someEdge = [inactiveEdges objectAtIndex:j];
                 
                 if (CGPointEqualToPoint([someEdge startPoint], [currentEdge endPoint]))
                 {
@@ -945,116 +928,6 @@
     
     return newPath;
 }
-
-//- (P2LGraphPath *)graphByJoiningWithAdjacentGraph:(P2LGraphPath *)secondGraph
-//{
-//    if (![self isAdjacentToPath:secondGraph])
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"graph not adjacent!"];
-//    }
-//    P2LGraphPath *newPath;
-//    
-//    if (![self isClosed] || ![secondGraph isClosed])
-//    {
-//        [NSException raise:NSInvalidArgumentException format:@"can only join closed graphs!"];
-//    }
-//
-//    /*
-//     * How to join 2 polygons:
-//     * We start with startPoint of Polygon A. If this point is also in Polygon B then we look the next point.
-//     * If that point is not in Polygon B, then we have reached the startPoint. Otherwise we go to the next
-//     * point and start the procedure again. If startPoint of Polygon A is not inside B, then we also jumped to
-//     * the next point. 
-//     * After reaching our new startPoint we should be at one of the two outer points connecting Polygon A and B.
-//     * We remeber that point and start looking at the next point of A. If not inside A and B, we add an edge
-//     * from the startPoint to it into the graph and continue from that next point. If however the point is inside 
-//     * both A and B, then we change our active Polygon to B and look at the point again this time looking at the 
-//     * next point inside B respectively. 
-//     * We repeat this procedure until we are at a point where the next point is our original start point and at that
-//     * moment we can simply close the graph.
-//     */
-//    CGPoint startPoint = CGPointZero;
-//    P2LGraphPath *activeGraph = self;
-//    P2LGraphPath *inactiveGrap = secondGraph;
-//    
-//    CGPoint tempStart = [self startPoint];
-//    // find start point
-//    while ([secondGraph containsPoint:tempStart])
-//    {
-//        tempStart = [self pointAfterPoint:tempStart];
-//    }
-//    // set start point
-//    startPoint = tempStart;
-//    
-//    // set intial loop values
-//    CGPoint nextPoint = [self pointAfterPoint:startPoint];
-//    CGPoint currentPoint = startPoint;
-//    
-//    // we keep a counter for swapping graphs. If we swap two times
-//    // after another then we are stuck and cannot find a next point
-//    // to add. In that case we change the direction of the inactive
-//    // graph and reset the while loop.
-//    int missCounter = 0;
-//    
-//    NSLog(@"\n\n START!!!! \n\n");
-//    
-//    // loop until we are back at start point
-//    while (!CGPointEqualToPoint(startPoint, nextPoint))
-//    {
-//        NSLog(@"currentPoint: (%f,%f) - nextPoint: (%f, %f)", currentPoint.x, currentPoint.y, nextPoint.x, nextPoint.y);
-//        // reverse inactive graph and reset loop
-//        if (missCounter == 2)
-//        {
-//            NSLog(@"reverse!");
-//            [inactiveGrap reversePoints];
-//            newPath = nil;
-//            
-//            nextPoint = [self pointAfterPoint:startPoint];
-//            currentPoint = startPoint;
-//            
-//            missCounter = 0;
-//            continue;
-//        }
-//        // if the next point is inside the other graph
-//        // we cannot add it and have to switch active graphs
-//        if ([inactiveGrap containsPoint:nextPoint] && [inactiveGrap containsPoint:currentPoint])
-//        {
-//            NSLog(@"MISS (%d)! swapping", missCounter);
-//            P2LGraphPath *temp = activeGraph;
-//            activeGraph = inactiveGrap;
-//            inactiveGrap = temp;
-//            
-//            nextPoint = [activeGraph pointAfterPoint:currentPoint];
-//            
-//            missCounter++;
-//        }
-//        else
-//        {
-//            missCounter = 0;
-//            
-//            if (newPath)
-//            {
-//                if ([newPath containsPoint:nextPoint])
-//                {
-//                    int kacke = 1;
-//                }
-//                [newPath addEdgeToEndPoint:nextPoint];
-//            }
-//            else
-//            {
-//                newPath = [[P2LGraphPath alloc] initWithEdge:[[P2LGraphEdge alloc] initWithStart:currentPoint andEnd:nextPoint]];
-//            }
-//            // set up for next loop
-//            currentPoint = nextPoint;
-//            nextPoint = [activeGraph pointAfterPoint:currentPoint];
-//        }
-//    }
-//    // next point == start point, so we just close the path to get
-//    // that edge
-//    [newPath closePath];
-//    
-//    return newPath;
-//}
 
 + (int)numPointsOfPath:(P2LGraphPath *)path belowGradientWithSlope:(CGFloat)slope andOrigin:(CGPoint)origin
 {
@@ -1105,7 +978,7 @@
     
     for (i = 1; i < [_allPoints count]; i++)
     {
-        [_edges addObject:[[P2LGraphEdge alloc] initWithStart:[lastPoint CGPointValue] andEnd:[nextPoint CGPointValue]]];
+        [_edges addObject:[[P2LPathEdge alloc] initWithStart:[lastPoint CGPointValue] andEnd:[nextPoint CGPointValue]]];
         
         lastPoint = [_allPoints objectAtIndex:i];
         
@@ -1117,7 +990,7 @@
     if (closed)
     {
         NSValue *nextPoint = [_allPoints objectAtIndex:0];
-        [_edges addObject:[[P2LGraphEdge alloc] initWithStart:[lastPoint CGPointValue] andEnd:[nextPoint CGPointValue]]];
+        [_edges addObject:[[P2LPathEdge alloc] initWithStart:[lastPoint CGPointValue] andEnd:[nextPoint CGPointValue]]];
     }
 }
 
@@ -1146,7 +1019,6 @@
 {
     if (self.failSafeCounter > 30)
     {
-        // holy shit
         return nil;
     }
     self.failSafeCounter++;
@@ -1172,7 +1044,7 @@
 {
     NSString *description = @"P2LGraphPath: \n";
     
-    for (P2LGraphEdge *edge in _edges)
+    for (P2LPathEdge *edge in _edges)
     {
         description = [description stringByAppendingFormat:@"\t%@\n", edge];
     }
