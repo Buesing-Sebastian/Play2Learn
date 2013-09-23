@@ -15,6 +15,7 @@
 #import "P2LInquiryViewController.h"
 #import "P2LMoveUnitsPromptView.h"
 #import "Question+DBAPI.h"
+#import "P2LRatedQuestion.h"
 
 typedef enum ConquerGameState {
 
@@ -283,7 +284,7 @@ typedef enum ConquerGameState {
                 else
                 {
                     // ready to attack!
-                    if (pathViewClicked.occupiedByEnemy)
+                    if (pathViewClicked.occupiedByEnemy && [self isAreaA:pathViewClicked nextToAreaB:self.selectedView])
                     {
                         if (pathViewClicked != self.midPathView || [self allOuterPathsConquered])
                         {
@@ -325,7 +326,7 @@ typedef enum ConquerGameState {
                 else
                 {
                     // ready to move!
-                    if (!pathViewClicked.occupiedByEnemy)
+                    if (!pathViewClicked.occupiedByEnemy && self.selectedView.forcesCount > 1)
                     {
                         [self displayMoveModalViewWithTargetPathView:pathViewClicked];
                     }
@@ -366,12 +367,6 @@ typedef enum ConquerGameState {
     {
         if ([pathView.path isInsidePoint:location])
         {
-//            self.selectedView.selected = NO;
-//            [self.selectedView setNeedsDisplay];
-//            
-//            pathView.selected = YES;
-//            self.selectedView = pathView;
-//            [self.selectedView setNeedsDisplay];
             return pathView;
         }
     }
@@ -423,7 +418,7 @@ typedef enum ConquerGameState {
     {
         if (self.selectedView)
         {
-            [self animateNewForcesCount:MAX(1 ,(self.selectedView.forcesCount - 1)) onPathView:self.selectedView];
+            [self animateNewForcesCount:MAX(1 , (self.selectedView.forcesCount - 1)) onPathView:self.selectedView];
             // advance to next game state
             if (self.currentGameState != ConquerGameStateInitialized)
             {
@@ -463,18 +458,39 @@ typedef enum ConquerGameState {
         self.attackedView = nil;
     }
     
-    NSArray *areasAroundCapitol = [self.layers objectAtIndex:1];
+    // copy first layer array
+    NSMutableArray *areasAroundCapitol = [[self.layers objectAtIndex:1] mutableCopy];
     
-    for (P2LPathView *pathView in areasAroundCapitol)
+    int unitsLeft = [self.layers count] - 1;
+    
+    // add own unit to midPath
+    [self animateNewForcesCount:self.midPathView.forcesCount+1 onPathView:self.midPathView];
+    
+    // iterate over all inner layers
+    for (int i = 0; i < ((NSArray *)[self.layers objectAtIndex:1]).count; i++)
     {
+        // grab path at random index
+        int randomIndex = arc4random() % [areasAroundCapitol count];
+        P2LPathView *pathView = [areasAroundCapitol objectAtIndex:randomIndex];
+        
+        // if occupied by enemy, add one unit and decrese counter
         if (pathView.occupiedByEnemy)
         {
             [self animateNewForcesCount:pathView.forcesCount+1 onPathView:pathView];
+            unitsLeft--;
+        }
+        
+        // remove that area from the array so we dont chose it again
+        [areasAroundCapitol removeObjectAtIndex:randomIndex];
+        
+        // if no units are left to place abort
+        if (unitsLeft == 0)
+        {
+            break;
         }
     }
-    [self animateNewForcesCount:self.midPathView.forcesCount+1 onPathView:self.midPathView];
     
-    // so far no KI, so just switch turn again
+    // thats it for the enemy turn - switch turn again
     self.currentGameState = ConquerGameStateUserTurnAttack;
     
     [self setHeaderNote:@"Gebiet angreifen..."];
@@ -504,6 +520,11 @@ typedef enum ConquerGameState {
     self.attackedView = nil;
 }
 
+- (BOOL)isAreaA:(P2LPathView *)areaA nextToAreaB:(P2LPathView *)areaB
+{
+    return [areaA.path isAdjacentToPath:areaB.path];
+}
+
 #pragma mark - question selection methods
 
 - (void)setupQuestionPool
@@ -513,41 +534,26 @@ typedef enum ConquerGameState {
     for (Question *question in [self.lesson.questions allObjects])
     {
         NSString *key = [NSString stringWithFormat:@"%d", [question primaryId]];
-        NSNumber *rating = [NSNumber numberWithFloat:1.0f];
-        NSNumber *numChosen = [NSNumber numberWithInt:0];
-        NSNumber *lastCorrectness = [NSNumber numberWithFloat:0.0f];
-        NSNumber *avgCorrectness = [NSNumber numberWithFloat:0.0f];
         
-        NSMutableDictionary *questionDict = [@{@"question": question, @"rating" : rating, @"numChosen" : numChosen,
-                                       @"lastCorrectness" : lastCorrectness, @"avgCorrectness" : avgCorrectness} mutableCopy];
-        
-        [_questionPool setObject:questionDict forKey:key];
+        P2LRatedQuestion *ratedQuestion = [[P2LRatedQuestion alloc] initWithQuestion:question];
+        [_questionPool setObject:ratedQuestion forKey:key];
     }
 }
 
 - (void)answeredQuestion:(Question *)question withCorrectness:(float)correctness
 {
     // grab question from pool
-    NSMutableDictionary *questionDict = [_questionPool objectForKey:[NSString stringWithFormat:@"%d", [question primaryId]]];
-    
-    // grab values
-    int numChosen = [[questionDict objectForKey:@"numChosen"] intValue];
-    float rating = [[questionDict objectForKey:@"rating"] floatValue];
-    float lastCorrectness = correctness;
-    float avgCorrectness = [[questionDict objectForKey:@"avgCorrectness"] floatValue];
+    P2LRatedQuestion *ratedQuestion = [_questionPool objectForKey:[NSString stringWithFormat:@"%d", [question primaryId]]];
     
     // update values
-    avgCorrectness = ((float)numChosen * avgCorrectness + correctness) / ((float)numChosen + 1.0f);
-    numChosen++;
-    rating -= 0.3; // subtraction per prompt
-    rating += (1.0f - lastCorrectness) * 0.2f; // addition for mistakes in the last prompt
-    rating += (1.0f - avgCorrectness) * 0.1f; // addition for mistakes in the general
-    
-    // save values
-    [questionDict setValue:[NSNumber numberWithInt:numChosen] forKey:@"numChosen"];
-    [questionDict setValue:[NSNumber numberWithFloat:lastCorrectness] forKey:@"lastCorrectness"];
-    [questionDict setValue:[NSNumber numberWithFloat:avgCorrectness] forKey:@"avgCorrectness"];
-    [questionDict setValue:[NSNumber numberWithFloat:rating] forKey:@"rating"];
+    float numerator = ((float)ratedQuestion.numChosen * ratedQuestion.avgCorrectness + correctness);
+    ratedQuestion.avgCorrectness = numerator / ((float)ratedQuestion.numChosen + 1.0f);
+    ratedQuestion.numChosen++;
+    ratedQuestion.rating -= 0.3; // subtraction per prompt
+    ratedQuestion.rating += (1.0f - correctness) * 0.2f; // addition for mistakes in the last prompt
+    ratedQuestion.rating += (1.0f - ratedQuestion.avgCorrectness) * 0.1f; // addition for mistakes in the general
+    ratedQuestion.rating += (correctness < ratedQuestion.lastCorrectness) ? 0.05 : -0.025;
+    ratedQuestion.lastCorrectness = correctness;
 }
 
 - (Question *)randomQuestionFromQuestionPool:(NSArray *)questionPool
@@ -559,32 +565,26 @@ typedef enum ConquerGameState {
     
     float barrier = 0;
     
-    for (NSDictionary *questionDict in questionPool)
+    for (P2LRatedQuestion *ratedQuestion in questionPool)
     {
-        float rating = [[questionDict objectForKey:@"rating"] floatValue];
-        
-        barrier += powf(rating, 2.0f) * 1000;
+        barrier += powf(ratedQuestion.rating, 2.0f) * 1000;
     }
     
     // grab random float between 0 and barrier
     float random = ((float)arc4random() / ARC4RANDOM_MAX) * barrier;
     
-    for (NSDictionary *questionDict in questionPool)
+    float newBarrier = 0.0f;
+    
+    for (P2LRatedQuestion *ratedQuestion in questionPool)
     {
-        float rating = [[questionDict objectForKey:@"rating"] floatValue];
+        newBarrier += powf(ratedQuestion.rating, 2.0f) * 1000;
         
-        float newBarrier = barrier - powf(rating, 2.0f) * 1000;
-        
-        if (newBarrier < random)
+        if (newBarrier > random)
         {
-            return [questionDict objectForKey:@"question"];
-        }
-        else
-        {
-            barrier = newBarrier;
+            return ratedQuestion.question;
         }
     }
-    return [[questionPool objectAtIndex:0] objectForKey:@"question"];
+    return [[questionPool objectAtIndex:(questionPool.count - 1)] question];
 }
 
 - (NSArray *)randomQuestionsMeetingRequiredCount:(int)count
@@ -833,7 +833,6 @@ typedef enum ConquerGameState {
 
 - (void)addInitialTroopsViaAnimation
 {
-    // TODO
     CGFloat delay = 0.1;
     
     for (int i = 0; i < self.layers.count; i++)

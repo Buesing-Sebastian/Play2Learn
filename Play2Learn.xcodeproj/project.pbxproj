@@ -137,6 +137,7 @@
 		F6BF1BC21758E6B20040A03E /* P2LModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1BC11758E6B10040A03E /* P2LModelManager.m */; };
 		F6BF1BC51758EDA70040A03E /* PrimaryKey.m in Sources */ = {isa = PBXBuildFile; fileRef = F6BF1BC41758EDA60040A03E /* PrimaryKey.m */; };
 		F6CB75B31783536200220572 /* grassland.png in Resources */ = {isa = PBXBuildFile; fileRef = F6CB75B21783536200220572 /* grassland.png */; };
+		F6CE0B8717EF318400AF3D69 /* P2LRatedQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = F6CE0B8617EF318400AF3D69 /* P2LRatedQuestion.m */; };
 		F6D6B48C1777119C0099FA08 /* stats_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D6B4841777119C0099FA08 /* stats_selected.png */; };
 		F6D6B48D1777119C0099FA08 /* stats.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D6B4851777119C0099FA08 /* stats.png */; };
 		F6D6B48E1777119C0099FA08 /* conquer_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F6D6B4861777119C0099FA08 /* conquer_selected.png */; };
@@ -349,6 +350,8 @@
 		F6BF1BC31758EDA40040A03E /* PrimaryKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrimaryKey.h; path = models/PrimaryKey.h; sourceTree = "<group>"; };
 		F6BF1BC41758EDA60040A03E /* PrimaryKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrimaryKey.m; path = models/PrimaryKey.m; sourceTree = "<group>"; };
 		F6CB75B21783536200220572 /* grassland.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grassland.png; sourceTree = "<group>"; };
+		F6CE0B8517EF318400AF3D69 /* P2LRatedQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = P2LRatedQuestion.h; path = models/P2LRatedQuestion.h; sourceTree = "<group>"; };
+		F6CE0B8617EF318400AF3D69 /* P2LRatedQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = P2LRatedQuestion.m; path = models/P2LRatedQuestion.m; sourceTree = "<group>"; };
 		F6D6B4841777119C0099FA08 /* stats_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stats_selected.png; path = images/stats_selected.png; sourceTree = "<group>"; };
 		F6D6B4851777119C0099FA08 /* stats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stats.png; path = images/stats.png; sourceTree = "<group>"; };
 		F6D6B4861777119C0099FA08 /* conquer_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = conquer_selected.png; path = images/conquer_selected.png; sourceTree = "<group>"; };
@@ -470,13 +473,6 @@
 			name = import;
 			sourceTree = "<group>";
 		};
-		F68B1E68175F9F3F0085C9A2 /* frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = frameworks;
-			sourceTree = "<group>";
-		};
 		F6BF1AA6174E5E980040A03E = {
 			isa = PBXGroup;
 			children = (
@@ -518,7 +514,6 @@
 				F6464E41178DDF9300EBD386 /* fonts */,
 				F62A6F3117784CB6005ABE4E /* files */,
 				F6D6B483177711830099FA08 /* images */,
-				F68B1E68175F9F3F0085C9A2 /* frameworks */,
 				F6BF1AF3174E5EDB0040A03E /* helpers */,
 				F6BF1AF2174E5ECE0040A03E /* controllers */,
 				F6BF1AF1174E5EC80040A03E /* views */,
@@ -575,6 +570,8 @@
 			children = (
 				F6BF1BAE1758E2950040A03E /* database */,
 				F6BF1AFA174E60480040A03E /* graph */,
+				F6CE0B8517EF318400AF3D69 /* P2LRatedQuestion.h */,
+				F6CE0B8617EF318400AF3D69 /* P2LRatedQuestion.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -1024,6 +1021,7 @@
 				F68809B017B7E4790038F5E3 /* P2LStatisticsInquiryViewController.m in Sources */,
 				F68809BF17B81E1C0038F5E3 /* P2LTableViewCell.m in Sources */,
 				F643205F17CE6DC000E34F59 /* Answer.m in Sources */,
+				F6CE0B8717EF318400AF3D69 /* P2LRatedQuestion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
