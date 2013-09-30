@@ -2,7 +2,7 @@
 //  Inquiry.h
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 11.08.13.
+//  Created by Sebastian Büsing on 29.09.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
@@ -13,27 +13,25 @@
 
 @interface Inquiry : NSManagedObject
 
-@property (nonatomic, retain) NSString * answers;
 @property (nonatomic) NSTimeInterval finished;
-@property (nonatomic) int32_t primaryKey;
-@property (nonatomic) NSTimeInterval started;
 @property (nonatomic) float score;
-@property (nonatomic, retain) NSSet *questions;
-@property (nonatomic, retain) Lesson *lesson;
-@property (nonatomic, retain) Conquest *usedInConquest;
+@property (nonatomic) NSTimeInterval started;
 @property (nonatomic, retain) NSSet *choices;
+@property (nonatomic, retain) Lesson *lesson;
+@property (nonatomic, retain) NSSet *questions;
+@property (nonatomic, retain) Conquest *usedInConquest;
 @end
 
 @interface Inquiry (CoreDataGeneratedAccessors)
-
-- (void)addQuestionsObject:(Question *)value;
-- (void)removeQuestionsObject:(Question *)value;
-- (void)addQuestions:(NSSet *)values;
-- (void)removeQuestions:(NSSet *)values;
 
 - (void)addChoicesObject:(Choice *)value;
 - (void)removeChoicesObject:(Choice *)value;
 - (void)addChoices:(NSSet *)values;
 - (void)removeChoices:(NSSet *)values;
+
+- (void)addQuestionsObject:(Question *)value;
+- (void)removeQuestionsObject:(Question *)value;
+- (void)addQuestions:(NSSet *)values;
+- (void)removeQuestions:(NSSet *)values;
 
 @end

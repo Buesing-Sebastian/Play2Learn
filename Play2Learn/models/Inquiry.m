@@ -2,7 +2,7 @@
 //  Inquiry.m
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 11.08.13.
+//  Created by Sebastian Büsing on 29.09.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
@@ -15,14 +15,12 @@
 
 @implementation Inquiry
 
-@dynamic answers;
 @dynamic finished;
-@dynamic primaryKey;
-@dynamic started;
 @dynamic score;
-@dynamic questions;
-@dynamic lesson;
-@dynamic usedInConquest;
+@dynamic started;
 @dynamic choices;
+@dynamic lesson;
+@dynamic questions;
+@dynamic usedInConquest;
 
 @end

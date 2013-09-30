@@ -2,7 +2,7 @@
 //  Question.m
 //  Play2Learn
 //
-//  Created by Sebastian Büsing on 11.08.13.
+//  Created by Sebastian Büsing on 29.09.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
@@ -20,9 +20,9 @@
 @dynamic prompt;
 @dynamic title;
 @dynamic answers;
-@dynamic correctAnswers;
-@dynamic lesson;
-@dynamic inquiries;
 @dynamic choices;
+@dynamic correctAnswers;
+@dynamic inquiries;
+@dynamic lesson;
 
 @end

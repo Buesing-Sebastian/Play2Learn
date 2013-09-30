@@ -1,19 +1,13 @@
 //
-//  PrimaryKey.m
+//  Conquest+DBAPI.h
 //  Play2Learn
 //
 //  Created by Sebastian Büsing on 29.09.13.
 //  Copyright (c) 2013 Sebastian Büsing. All rights reserved.
 //
 
-#import "PrimaryKey.h"
+#import "Conquest.h"
 
-
-@implementation PrimaryKey
-
-@dynamic answer;
-@dynamic catalog;
-@dynamic lesson;
-@dynamic question;
+@interface Conquest (DBAPI)
 
 @end
